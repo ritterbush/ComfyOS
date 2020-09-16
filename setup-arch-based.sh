@@ -20,7 +20,7 @@ done
 sudo useradd -m -G wheel,audio,video "$username"
 (echo "$password"; echo "$password") | sudo passwd "$username"
 
-sleep 1
+#sleep 1
 
 #echo "$password" | su "$username"
 
@@ -32,7 +32,9 @@ sleep 1
 
 #sudo runuser $username
 
-sudo -S su - "$username" -c "curl https://berkeley.edu > /home/${username}/berkeley.html"
+#This curl cmd works but the cat cmd below does not, OK!
+#sudo -S su - "$username" -c "curl https://berkeley.edu > /home/${username}/berkeley.html"
+
 # To avoid possible conflicts with packages that have not been upgraded in a while, do not update packagelist, but install packages as the list currently stands
 #sudo su - "$username" -c "(echo "$password"; echo; echo; echo) | sudo pacman -S xorg xorg-xinit zsh git alacritty neovim firefox picom xwallpaper sxiv python-pywal neofetch htop"
 
@@ -41,7 +43,13 @@ sudo -S su - "$username" -c "curl https://berkeley.edu > /home/${username}/berke
 #echo "$password" | sudo -S su - "$username" -c "sh /home/"$username"/archsetup.sh"
 
 # Create the chroot script that executes inside the new Arch system 
-sudo -S su - "$username" -c  "cat > /home/${username}/setup.sh <<End-of-message
+#sudo -S su - "$username" -c  cat > /home/${username}/setup.sh <<End-of-message
+
+# Nothing with running as $username seems to be working like I want, so just temporarily change permissions for executing/writing to new user's home folder:
+
+sudo chmod 733 /home/"$username"
+
+cat > /home/${username}/new-user-setup.sh <<End-of-message
 
 (echo "$password"; echo; echo; echo) | sudo pacman -S xorg xorg-xinit zsh git alacritty neovim firefox picom xwallpaper sxiv python-pywal neofetch htop
 
@@ -110,13 +118,19 @@ sed -i "s/^.*\[SchemeNormHighlight\] =.*/        \[SchemeNormHighlight\] = \{ ${
 cd "$HOME"/Programs/dwm/ && sudo -S make clean install
 cd "$HOME"/Programs/dmenu/ && sudo -S make clean install
 
-End-of-message"
+End-of-message
 
 sleep 3
-# Make that script executable
-sudo chmod +x /home/"$username"/setup.sh
+# Make that script executable by owner
+chmod 700 /home/"$username"/new-user-setup.sh
 
-# Execute it
-#sudo -S su - "$username" -c "sh /home/"$username"/setup.sh"
+#echo "$password" | sudo -S su - "$username" -c "sh /home/"$username"/new-user-setup.sh
+
+# Change ownership to new user
+
+chown "$username:$username" /home/"$username"/new-user-setup.sh
+
+# Execute it as new user
+sudo -S su - "$username" -c "sh /home/"$username"/new-user-setup.sh"
 
 echo done
