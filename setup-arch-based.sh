@@ -29,7 +29,7 @@ sleep 1
 
 echo COOL
 sleep 1
-$(whoami)
+#$(whoami)
 
 # To avoid possible conflicts with packages that have not been upgraded in a while, do not update packagelist, but install packages as the list currently stands
 #sudo su - "$username" -c "(echo "$password"; echo; echo; echo) | sudo pacman -S xorg xorg-xinit zsh git alacritty neovim firefox picom xwallpaper sxiv python-pywal neofetch htop"
@@ -39,7 +39,7 @@ $(whoami)
 #echo "$password" | sudo -S su - "$username" -c "sh /home/"$username"/archsetup.sh"
 
 # Create the chroot script that executes inside the new Arch system 
-sudo cat > /home/"$username"/setup.sh <<End-of-message
+sudo -S cat > /home/"$username"/setup.sh <<End-of-message
 
 (echo "$password"; echo; echo; echo) | sudo pacman -S xorg xorg-xinit zsh git alacritty neovim firefox picom xwallpaper sxiv python-pywal neofetch htop
 
@@ -112,9 +112,9 @@ End-of-message
 
 sleep 3
 # Make that script executable
-sudo chmod +x /home/"$username"/archsetup.sh
+sudo chmod +x /home/"$username"/setup.sh
 
 # Execute it
-#sudo -S su - "$username" -c "sh /home/"$username"/archsetup.sh"
+#sudo -S su - "$username" -c "sh /home/"$username"/setup.sh"
 
 echo done
