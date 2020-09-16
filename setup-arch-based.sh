@@ -20,12 +20,12 @@ done
 sudo useradd -m -G wheel,audio,video "$username"
 (echo "$password"; echo "$password") | sudo passwd "$username"
 
-sleep 3
+sleep 1
 
 echo "$password" | su "$username"
 
 echo $(whoami)
-sleep 2
+sleep 1
 
 echo COOL
 sleep 1
@@ -111,10 +111,11 @@ cd "$HOME"/Programs/dmenu/ && sudo -S make clean install
 
 End-of-message
 
+sleep 3
 # Make that script executable
-sudo -S chmod +x /home/"$username"/archsetup.sh
+sudo chmod +x /home/"$username"/archsetup.sh
 
 # Execute it
-sudo -S su - "$username" -c "sh /home/"$username"/archsetup.sh"
+#sudo -S su - "$username" -c "sh /home/"$username"/archsetup.sh"
 
 echo done
