@@ -118,7 +118,7 @@ sed -i "s/^.*\[SchemeNormHighlight\] =.*/        \[SchemeNormHighlight\] = \{ ${
 cd /home/"$username"/Programs/dwm/ && sudo -S make clean install
 cd /home/"$username"/Programs/dmenu/ && sudo -S make clean install
 
-End-of-message
+'End-of-message'
 
 sleep 3
 # Make that script executable by owner
