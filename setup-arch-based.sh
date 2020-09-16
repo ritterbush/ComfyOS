@@ -91,21 +91,21 @@ cp /etc/xdg/picom.conf.example ~/.config/picom/picom.conf
 #~/.local/bin/dwm-opacity.sh 70
 sed -i "s/static const unsigned int baralpha = .*/static const unsigned int baralpha = 0xb3;/" ~/Programs/dwm/config.def.h
 #~/.local/bin/wallpaper-and-colors.sh ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
-sed -i "5s|.*|filepath=/home/${username}/Pictures/Wallpapers/fall-autumn-red-season.jpg|" ~/.local/bin/wallpaper-and-colors.sh
+sed -i "5s|.*|filepath=~/Pictures/Wallpapers/fall-autumn-red-season.jpg|" ~/.local/bin/wallpaper-and-colors.sh
 xwallpaper --zoom ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
-sed -i "s/static const char norm_fg\[\] = .*/$(sed -n 1p ~/.cache/wal/colors-wal-dwm.h)/" ~/Programs/dwm/config.def.h
-sed -i "s/static const char norm_bg\[\] = .*/$(sed -n 2p ~/.cache/wal/colors-wal-dwm.h)/" ~/Programs/dwm/config.def.h
-sed -i "s/static const char norm_border\[\] = .*/$(sed -n 3p ~/.cache/wal/colors-wal-dwm.h)/" ~/Programs/dwm/config.def.h
-sed -i "s/static const char sel_fg\[\] = .*/$(sed -n 5p ~/.cache/wal/colors-wal-dwm.h)/" ~/Programs/dwm/config.def.h
-sed -i "s/static const char sel_bg\[\] = .*/$(sed -n 6p ~/.cache/wal/colors-wal-dwm.h)/" ~/Programs/dwm/config.def.h
-sed -i "s/static const char sel_border\[\] = .*/$(sed -n 7p ~/.cache/wal/colors-wal-dwm.h)/" ~/Programs/dwm/config.def.h
+sed -i "s/static const char norm_fg\[\] = .*/\$(sed -n 1p ~/.cache/wal/colors-wal-dwm.h)/" ~/Programs/dwm/config.def.h
+sed -i "s/static const char norm_bg\[\] = .*/\$(sed -n 2p ~/.cache/wal/colors-wal-dwm.h)/" ~/Programs/dwm/config.def.h
+sed -i "s/static const char norm_border\[\] = .*/\$(sed -n 3p ~/.cache/wal/colors-wal-dwm.h)/" ~/Programs/dwm/config.def.h
+sed -i "s/static const char sel_fg\[\] = .*/\$(sed -n 5p ~/.cache/wal/colors-wal-dwm.h)/" ~/Programs/dwm/config.def.h
+sed -i "s/static const char sel_bg\[\] = .*/\$(sed -n 6p ~/.cache/wal/colors-wal-dwm.h)/" ~/Programs/dwm/config.def.h
+sed -i "s/static const char sel_border\[\] = .*/\$(sed -n 7p ~/.cache/wal/colors-wal-dwm.h)/" ~/Programs/dwm/config.def.h
 
-sed -i "s/^.*\[SchemeNorm\].*/$(sed -n 3p ~/.cache/wal/colors-wal-dmenu.h)/" ~/Programs/dmenu/config.def.h
-sed -i "s/^.*\[SchemeSel\].*/$(sed -n 4p ~/.cache/wal/colors-wal-dmenu.h)/" ~/Programs/dmenu/config.def.h
-sed -i "s/^.*\[SchemeOut\].*/$(sed -n 5p ~/.cache/wal/colors-wal-dmenu.h)/" ~/Programs/dmenu/config.def.h
+sed -i "s/^.*\[SchemeNorm\].*/\$(sed -n 3p ~/.cache/wal/colors-wal-dmenu.h)/" ~/Programs/dmenu/config.def.h
+sed -i "s/^.*\[SchemeSel\].*/\$(sed -n 4p ~/.cache/wal/colors-wal-dmenu.h)/" ~/Programs/dmenu/config.def.h
+sed -i "s/^.*\[SchemeOut\].*/\$(sed -n 5p ~/.cache/wal/colors-wal-dmenu.h)/" ~/Programs/dmenu/config.def.h
 colorNewHighlight=\$(sed -n 7p ~/.cache/wal/colors)
 colorNewHighlight=\$(echo "\$colorNewHighlight" | sed "s/^/\"/")
-colorNewHighlight=\$(echo "\$colorNewHighlight" | sed "s/$/\"/")
+colorNewHighlight=\$(echo "\$colorNewHighlight" | sed "s/\$/\"/")
 color2=\$(grep "\[SchemeSel\] =" ~/Programs/dmenu/config.def.h)
 color2=\$(echo "\$color2" | sed "s/^.*, //")
 color2=\${color2% \},}
