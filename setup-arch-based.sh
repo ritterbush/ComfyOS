@@ -126,11 +126,13 @@ chmod 700 /home/"$username"/new-user-setup.sh
 
 #echo "$password" | sudo -S su - "$username" -c "sh /home/"$username"/new-user-setup.sh
 
-# Change ownership to new user
+# Change owner to be new user
+sudo chown "$username:$username" /home/"$username"/new-user-setup.sh
 
-chown "$username:$username" /home/"$username"/new-user-setup.sh
-
-# Execute it as new user
+# Execute script  as new user
 sudo -S su - "$username" -c "sh /home/"$username"/new-user-setup.sh"
+
+# Return permissions to new user's home directory
+sudo chmod 700 /home/"$username"
 
 echo done
