@@ -17,7 +17,7 @@ while getopts ":u:p:" opt; do
 done
 
 # Create new user with given password and add user to wheel, audio, and video groups
-useradd -m -G wheel,audio,video "$username"
+sudo useradd -m -G wheel,audio,video "$username"
 (echo "$password"; echo "$password") | passwd "$username"
 
 # To avoid possible conflicts with packages that have not been upgraded in a while, do not update packagelist, but install packages as the list currently stands
