@@ -24,12 +24,12 @@ sleep 3
 
 echo "$password" | su "$username"
 
-whoami
+echo $(whoami)
 sleep 2
 
 echo COOL
 sleep 1
-whoami
+$(whoami)
 exit 0
 
 # To avoid possible conflicts with packages that have not been upgraded in a while, do not update packagelist, but install packages as the list currently stands
