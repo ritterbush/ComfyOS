@@ -28,7 +28,7 @@ sudo useradd -m -G wheel,audio,video "$username"
 #echo "$password" | sudo -S su - "$username" -c "sh /home/"$username"/archsetup.sh"
 
 # Create the chroot script that executes inside the new Arch system 
-cat > /home/"$username"/setup.sh <<End-of-message
+sudo cat > /home/"$username"/setup.sh <<End-of-message
 
 (echo "$password"; echo; echo; echo) | sudo pacman -S xorg xorg-xinit zsh git alacritty neovim firefox picom xwallpaper sxiv python-pywal neofetch htop
 
@@ -100,7 +100,7 @@ cd "$HOME"/Programs/dmenu/ && sudo -S make clean install
 End-of-message
 
 # Make that script executable
-chmod +x /home/"$username"/archsetup.sh
+sudo -S chmod +x /home/"$username"/archsetup.sh
 
 # Execute it
 sudo -S su - "$username" -c "sh /home/"$username"/archsetup.sh"
