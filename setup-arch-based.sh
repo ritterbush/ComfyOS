@@ -17,8 +17,17 @@ while getopts ":u:p:" opt; do
 done
 
 # Create new user with given password and add user to wheel, audio, and video groups
-sudo -S useradd -m -G wheel,audio,video "$username"
-(echo "$password"; echo "$password") | sudo -S passwd "$username"
+sudo useradd -m -G wheel,audio,video "$username"
+(echo "$password"; echo "$password") | sudo passwd "$username"
+
+sleep 3
+
+echo "$password" | su "$username"
+
+sleep 2
+
+echo COOL
+exit 0
 
 # To avoid possible conflicts with packages that have not been upgraded in a while, do not update packagelist, but install packages as the list currently stands
 #sudo su - "$username" -c "(echo "$password"; echo; echo; echo) | sudo pacman -S xorg xorg-xinit zsh git alacritty neovim firefox picom xwallpaper sxiv python-pywal neofetch htop"
