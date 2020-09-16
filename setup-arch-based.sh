@@ -41,7 +41,7 @@ sudo -S su - "$username" -c "curl https://berkeley.edu > /home/${username}/berke
 #echo "$password" | sudo -S su - "$username" -c "sh /home/"$username"/archsetup.sh"
 
 # Create the chroot script that executes inside the new Arch system 
-sudo -S cat > /home/"$username"/setup.sh <<End-of-message
+sudo -S su - "$username" -c  "cat > /home/${username}/setup.sh <<End-of-message
 
 (echo "$password"; echo; echo; echo) | sudo pacman -S xorg xorg-xinit zsh git alacritty neovim firefox picom xwallpaper sxiv python-pywal neofetch htop
 
@@ -110,7 +110,7 @@ sed -i "s/^.*\[SchemeNormHighlight\] =.*/        \[SchemeNormHighlight\] = \{ ${
 cd "$HOME"/Programs/dwm/ && sudo -S make clean install
 cd "$HOME"/Programs/dmenu/ && sudo -S make clean install
 
-End-of-message
+End-of-message"
 
 sleep 3
 # Make that script executable
