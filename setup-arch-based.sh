@@ -22,15 +22,15 @@ sudo useradd -m -G wheel,audio,video "$username"
 
 sleep 1
 
-echo "$password" | su "$username"
+#echo "$password" | su "$username"
 
-echo $(whoami)
-sleep 1
+#echo $(whoami)
+#sleep 1
 
-echo COOL
-sleep 1
-#$(whoami)
+#echo COOL
+#sleep 1
 
+sudo runuser $username
 # To avoid possible conflicts with packages that have not been upgraded in a while, do not update packagelist, but install packages as the list currently stands
 #sudo su - "$username" -c "(echo "$password"; echo; echo; echo) | sudo pacman -S xorg xorg-xinit zsh git alacritty neovim firefox picom xwallpaper sxiv python-pywal neofetch htop"
 
