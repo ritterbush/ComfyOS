@@ -59,7 +59,7 @@ curl https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg > ~/Pictu
 
 # Generate py-wal cache files before building dwm and dmenu
 wal -i ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
-sleep 2
+sleep 7
 
 # Directory for building programs from source
 mkdir ~/Programs
@@ -93,7 +93,7 @@ sed -i "s/static const unsigned int baralpha = .*/static const unsigned int bara
 #~/.local/bin/wallpaper-and-colors.sh ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
 sed -i "5s|.*|filepath=~/Pictures/Wallpapers/fall-autumn-red-season.jpg|" ~/.local/bin/wallpaper-and-colors.sh
 #xwallpaper --zoom ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
-nitrogen --random ~/Pictures/Wallpapers/
+#nitrogen --random ~/Pictures/Wallpapers/
 sed -i "s/static const char norm_fg\[\] = .*/\$(sed -n 1p ~/.cache/wal/colors-wal-dwm.h)/" ~/Programs/dwm/config.def.h
 sed -i "s/static const char norm_bg\[\] = .*/\$(sed -n 2p ~/.cache/wal/colors-wal-dwm.h)/" ~/Programs/dwm/config.def.h
 sed -i "s/static const char norm_border\[\] = .*/\$(sed -n 3p ~/.cache/wal/colors-wal-dwm.h)/" ~/Programs/dwm/config.def.h
@@ -118,6 +118,7 @@ sed -i "s/^.*\[SchemeNormHighlight\] =.*/        \[SchemeNormHighlight\] = \{ \$
 
 cd /home/"$username"/Programs/dwm/ && sudo -S make clean install
 cd /home/"$username"/Programs/dmenu/ && sudo -S make clean install
+wal -i ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
 
 End-of-message
 
@@ -134,6 +135,8 @@ sudo chmod 700 /home/"$username"
 
 # Execute script  as new user
 sudo -S su - "$username" -c "sh /home/"$username"/new-user-setup.sh"
+
+sudo -S su - "$username" -c "wal -i ~/Pictures/Wallpapers/fall-autumn-red-season.jpg"
 
 #sudo -S su - "$username" -c "xwallpaper --zoom ~/Pictures/Wallpapers/fall-autumn-red-season.jpg"
 #xwallpaper --zoom ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
