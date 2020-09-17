@@ -136,7 +136,7 @@ sudo chmod 700 /home/"$username"
 sudo -S su - "$username" -c "sh /home/"$username"/new-user-setup.sh"
 
 sudo -S su - "$username" -c "xwallpaper --zoom ~/Pictures/Wallpapers/fall-autumn-red-season.jpg"
-
+wallpaper --zoom ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
 
 
 echo done
