@@ -1,8 +1,8 @@
-
 #!/bin/sh
 
 # Non-destructive, Arch Linux-based (e.g. Manjaro, Artix, ARCH!) setup of ComfyOS.
-# Run with options -u newusername -p passwordfornewusername, lest the defaults be used
+# Creates a new user for setup.
+# Run with options -u newusername -p passwordfornewusername, lest the defaults be used.
 
 username=gnuslasharchlinux
 password=password
@@ -92,7 +92,9 @@ cp /etc/xdg/picom.conf.example ~/.config/picom/picom.conf
 sed -i "s/static const unsigned int baralpha = .*/static const unsigned int baralpha = 0xb3;/" ~/Programs/dwm/config.def.h
 #~/.local/bin/wallpaper-and-colors.sh ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
 sed -i "5s|.*|filepath=~/Pictures/Wallpapers/fall-autumn-red-season.jpg|" ~/.local/bin/wallpaper-and-colors.sh
+sleep 2
 xwallpaper --zoom ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
+sleep 2
 sed -i "s/static const char norm_fg\[\] = .*/\$(sed -n 1p ~/.cache/wal/colors-wal-dwm.h)/" ~/Programs/dwm/config.def.h
 sed -i "s/static const char norm_bg\[\] = .*/\$(sed -n 2p ~/.cache/wal/colors-wal-dwm.h)/" ~/Programs/dwm/config.def.h
 sed -i "s/static const char norm_border\[\] = .*/\$(sed -n 3p ~/.cache/wal/colors-wal-dwm.h)/" ~/Programs/dwm/config.def.h
