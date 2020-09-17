@@ -92,9 +92,7 @@ cp /etc/xdg/picom.conf.example ~/.config/picom/picom.conf
 sed -i "s/static const unsigned int baralpha = .*/static const unsigned int baralpha = 0xb3;/" ~/Programs/dwm/config.def.h
 #~/.local/bin/wallpaper-and-colors.sh ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
 sed -i "5s|.*|filepath=~/Pictures/Wallpapers/fall-autumn-red-season.jpg|" ~/.local/bin/wallpaper-and-colors.sh
-sleep 2
 xwallpaper --zoom ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
-sleep 2
 sed -i "s/static const char norm_fg\[\] = .*/\$(sed -n 1p ~/.cache/wal/colors-wal-dwm.h)/" ~/Programs/dwm/config.def.h
 sed -i "s/static const char norm_bg\[\] = .*/\$(sed -n 2p ~/.cache/wal/colors-wal-dwm.h)/" ~/Programs/dwm/config.def.h
 sed -i "s/static const char norm_border\[\] = .*/\$(sed -n 3p ~/.cache/wal/colors-wal-dwm.h)/" ~/Programs/dwm/config.def.h
@@ -131,10 +129,14 @@ chmod 700 /home/"$username"/new-user-setup.sh
 # Change owner to be new user
 sudo chown "$username:$username" /home/"$username"/new-user-setup.sh
 
+# Return permissions to new user's home directory
+sudo chmod 700 /home/"$username"
+
 # Execute script  as new user
 sudo -S su - "$username" -c "sh /home/"$username"/new-user-setup.sh"
 
-# Return permissions to new user's home directory
-sudo chmod 700 /home/"$username"
+sudo -S su - "$username" -c "xwallpaper --zoom ~/Pictures/Wallpapers/fall-autumn-red-season.jpg"
+
+
 
 echo done
