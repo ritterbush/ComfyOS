@@ -51,7 +51,7 @@ sudo chmod 733 /home/"$username"
 
 cat > /home/${username}/new-user-setup.sh <<End-of-message
 
-(echo "$password"; echo; echo; echo) | sudo pacman -S xorg xorg-xinit zsh git alacritty neovim firefox picom xwallpaper sxiv python-pywal neofetch htop
+(echo "$password"; echo; echo; echo) | sudo -S pacman -S xorg xorg-xinit zsh git alacritty neovim firefox picom xwallpaper sxiv python-pywal neofetch htop
 
 # Download Fall wallpaper from Pexels under CC0 license
 mkdir -p ~/Pictures/Wallpapers
