@@ -51,7 +51,7 @@ sudo chmod 733 /home/"$username"
 
 cat > /home/${username}/new-user-setup.sh <<End-of-message
 
-(echo "$password"; echo; echo; echo) | sudo -S pacman -S xorg xorg-xinit zsh git alacritty neovim firefox picom xwallpaper sxiv python-pywal neofetch htop
+(echo "$password"; echo; echo; echo) | sudo -S pacman -S xorg xorg-xinit zsh git alacritty neovim firefox picom nitrogen sxiv python-pywal neofetch htop
 
 # Download Fall wallpaper from Pexels under CC0 license
 mkdir -p ~/Pictures/Wallpapers
@@ -93,6 +93,7 @@ sed -i "s/static const unsigned int baralpha = .*/static const unsigned int bara
 #~/.local/bin/wallpaper-and-colors.sh ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
 sed -i "5s|.*|filepath=~/Pictures/Wallpapers/fall-autumn-red-season.jpg|" ~/.local/bin/wallpaper-and-colors.sh
 #xwallpaper --zoom ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
+nitrogen --random ~/Pictures/Wallpapers/
 sed -i "s/static const char norm_fg\[\] = .*/\$(sed -n 1p ~/.cache/wal/colors-wal-dwm.h)/" ~/Programs/dwm/config.def.h
 sed -i "s/static const char norm_bg\[\] = .*/\$(sed -n 2p ~/.cache/wal/colors-wal-dwm.h)/" ~/Programs/dwm/config.def.h
 sed -i "s/static const char norm_border\[\] = .*/\$(sed -n 3p ~/.cache/wal/colors-wal-dwm.h)/" ~/Programs/dwm/config.def.h
@@ -135,7 +136,7 @@ sudo chmod 700 /home/"$username"
 sudo -S su - "$username" -c "sh /home/"$username"/new-user-setup.sh"
 
 #sudo -S su - "$username" -c "xwallpaper --zoom ~/Pictures/Wallpapers/fall-autumn-red-season.jpg"
-xwallpaper --zoom ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
+#xwallpaper --zoom ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
 
 
 echo done
