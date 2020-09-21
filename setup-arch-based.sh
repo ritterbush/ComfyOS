@@ -36,7 +36,7 @@ sudo useradd -m -G wheel,audio,video "$username"
 #sudo -S su - "$username" -c "curl https://berkeley.edu > /home/${username}/berkeley.html"
 
 # To avoid possible conflicts with packages that have not been upgraded in a while, do not update packagelist, but install packages as the list currently stands
-#sudo su - "$username" -c "(echo "$password"; echo; echo; echo) | sudo pacman -S xorg xorg-xinit zsh git alacritty neovim firefox picom xwallpaper sxiv python-pywal neofetch htop"
+#sudo su - "$username" -c "(echo "$password"; echo; echo; echo) | sudo pacman -S xorg xorg-xinit zsh git alacritty neovim firefox picom xwallpaper sxiv python-pywal neofetch htop mpd ncmpcpp"
 
 #sudo su - "$username"
 # Run commands as newly created user
@@ -51,7 +51,7 @@ sudo chmod 733 /home/"$username"
 
 cat > /home/${username}/new-user-setup.sh <<End-of-message
 
-(echo "$password"; echo; echo; echo) | sudo -S pacman -S xorg xorg-xinit zsh git alacritty neovim firefox picom feh sxiv ttf-linux-libertine python-pywal neofetch htop
+(echo "$password"; echo; echo; echo) | sudo -S pacman -S xorg xorg-xinit zsh git alacritty neovim firefox picom feh sxiv ttf-linux-libertine python-pywal neofetch htop mpd ncmpcpp
 
 # Download Fall wallpaper from Pexels under CC0 license
 mkdir -p ~/Pictures/Wallpapers
@@ -59,7 +59,7 @@ curl https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg > ~/Pictu
 
 # Generate py-wal cache files before building dwm and dmenu
 wal -i ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
-sleep 7
+sleep 3
 
 # Directory for building programs from source
 mkdir ~/Programs
@@ -118,7 +118,7 @@ sed -i "s/^.*\[SchemeNormHighlight\] =.*/        \[SchemeNormHighlight\] = \{ \$
 
 cd /home/"$username"/Programs/dwm/ && sudo -S make clean install
 cd /home/"$username"/Programs/dmenu/ && sudo -S make clean install
-wal -i ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
+#wal -i ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
 
 End-of-message
 
@@ -136,7 +136,7 @@ sudo chmod 700 /home/"$username"
 # Execute script  as new user
 sudo -S su - "$username" -c "sh /home/"$username"/new-user-setup.sh"
 
-sudo -S su - "$username" -c "wal -i ~/Pictures/Wallpapers/fall-autumn-red-season.jpg"
+#sudo -S su - "$username" -c "wal -i ~/Pictures/Wallpapers/fall-autumn-red-season.jpg"
 
 #sudo -S su - "$username" -c "xwallpaper --zoom ~/Pictures/Wallpapers/fall-autumn-red-season.jpg"
 #xwallpaper --zoom ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
