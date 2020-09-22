@@ -4,7 +4,7 @@
 Not really an OS, since it assumes you already have an Arch or Debian-based distro installed.
 But it is the look, feel, and functionality of the OS for the user. See below to see what it uses.
 
-![GitHub Logo](/images/logo.png)
+![comfy](/ComfyOS.png)
 
 ### First curl/wget/download the correct script, be it Arch or Debian-based, and then
 ### Run it with the options -u [username] and -p [password] to make a new user username and password to try it out.
