@@ -30,8 +30,55 @@ fi # end of -c option is not used
 sudo chmod 733 /home/"$username"
 
 cat > /home/${username}/new-user-setup.sh <<End-of-message
-(echo "$password"; echo; echo; echo) | sudo -S apt install xorg xinit zsh git neovim firefox-esr feh sxiv fonts-libertine neofetch htop mpd ncmpcpp
-# Alacritty needs to be built, and so does picom and python-pywal, --see github pages for all dependencies!!
+(echo "$password"; echo; echo; echo) | sudo -S apt install xorg xinit zsh git neovim firefox-esr feh sxiv fonts-libertine neofetch htop mpd ncmpcpp libxext-dev libxcb1-dev libxcb-damage0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-render-util0-dev libxcb-render0-dev libxcb-randr0-dev libxcb-composite0-dev libxcb-image0-dev libxcb-present-dev libxcb-xinerama0-dev libxcb-glx0-dev libpixman-1-dev libdbus-1-dev libconfig-dev libgl1-mesa-dev  libpcre2-dev libevdev-dev uthash-dev libev-dev libx11-xcb-dev cmake python3 ninja-build meson libpcre3 libpcre3-dev python3-pip pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev
+
+mkdir -p ~/Programs
+
+# Build picom
+cd ~/Programs
+git clone https://github.com/yshui/picom
+cd picom
+git submodule update --init --recursive
+meson --buildtype=release . build
+ninja -C build
+ninja -C build install
+
+# Build py-wal
+cd ~/Programs
+git clone https://github.com/dylanaraps/pywal
+cd pywal
+pip3 install --user .
+
+# Add local 'pip' to PATH:
+# (In your .bashrc, .zshrc etc)
+#export PATH="${PATH}:${HOME}/.local/bin/"
+
+# Build alacritty
+
+mkdir -p ~/Programs/alacritty
+cd ~/Programs/alacrity
+wget https://github.com/alacritty/alacritty/archive/v0.5.0.tar.gz
+tar -zxvf v0.5.0.tar.gz
+cd v0.5.0
+
+#git clone https://github.com/alacritty/alacritty.git
+#cd alacritty
+
+# Rustup
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > rustup.sh
+chmod +x ./rustup.sh
+./rustup.sh -y
+source $HOME/.cargo/env
+rustup override set stable
+rustup update stable
+# build
+cargo build --release
+# install
+sudo cp target/release/alacritty /usr/local/bin # or anywhere else in $PATH
+sudo cp extra/logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg
+sudo desktop-file-install extra/linux/Alacritty.desktop
+sudo update-desktop-database
+
 # Download Fall wallpaper from Pexels under CC0 license
 mkdir -p ~/Pictures/Wallpapers
 curl https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg > ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
@@ -39,18 +86,21 @@ curl https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg > ~/Pictu
 wal -i ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
 sleep 3
 # Directory for building programs from source
-mkdir ~/Programs
+mkdir -p ~/Programs/files
 # Get my dwm/dmenu desktop environment, various dotfiles, and scripts
-git clone https://github.com/ritterbush/files ~/Programs/
+git clone https://github.com/ritterbush/files ~/Programs/files
+
+mv ~/Programs/files/dwm ~/Programs/
+mv ~/Programs/files/dmenu ~/Programs/
 # xinitrc
-cp ~/Programs/.xinitrc ~/.xinitrc
+cp ~/Programs/files/.xinitrc ~/.xinitrc
 # zshrc
-cp ~/Programs/.zshrc ~/.zshrc
+cp ~/Programs/files/.zshrc ~/.zshrc
 # change shell to zsh
 (echo "$password"; echo /bin/zsh) | chsh 
 # shell scripts, neovim config and plugins, alacritty config 
-cp -r ~/Programs/.local ~/
-cp -r ~/Programs/.config ~/
+cp -r ~/Programs/files/.local ~/
+cp -r ~/Programs/files/.config ~/
 # picom compositor config
 mkdir -p ~/.config/picom
 cp /etc/xdg/picom.conf.example ~/.config/picom/picom.conf
