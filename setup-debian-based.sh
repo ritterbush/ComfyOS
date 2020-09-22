@@ -57,7 +57,7 @@ fi
 # Build/Install alacritty
 
 mkdir -p ~/Programs/alacritty
-cd ~/Programs/alacrity
+cd ~/Programs/alacritty
 wget https://github.com/alacritty/alacritty/archive/v0.5.0.tar.gz
 tar -zxvf v0.5.0.tar.gz
 cd v0.5.0
@@ -72,8 +72,8 @@ rustup update stable
 # build
 cargo build --release
 # install
-sudo cp ~/Programs/alacritty/target/release/alacritty /usr/local/bin # or anywhere else in $PATH
-sudo cp ~/Programs/alacritty//logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg
+sudo cp target/release/alacritty /usr/local/bin # or anywhere else in $PATH
+sudo cp logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg
 sudo desktop-file-install extra/linux/Alacritty.desktop
 sudo update-desktop-database
 
