@@ -1,18 +1,18 @@
 # Still Testing -- Do Not Use
 # ComfyOS
-###Seasonal Comfort OS
+### Seasonal Comfort OS
 Not really an OS, since it assumes you already have an Arch or Debian-based distro installed.
 But it is the look, feel, and functionality of the OS for the user. See below to see what it uses.
 
+![GitHub Logo](/images/logo.png)
 
+## First curl/wget/download the correct script, be it Arch or Debian-based, and then
+## Run it with the options -u [username] and -p [password] to make a new user username and password to try it out.
 
-##First curl/wget/download the correct script, be it Arch or Debian-based, and then
-##Run it with the options -u [username] and -p [password] to make a new user username and password to try it out.
-
-##OR, run it with just option -c to use the current user and use CAUTION, because certain files, such as .zshrc, 
+## OR, run it with just option -c to use the current user and use CAUTION, because certain files, such as .zshrc, 
 .xinitrc, and some other config files will get overwritten!
 
-###This script installs and makes use of:
+### This script installs and makes use of:
 
 the DWM window manager, along with Dmenu (with patches and modifications);
 the Alacritty terminal emulator;
@@ -28,7 +28,7 @@ music # Opens ncmpcpp music player
 
 Note that DWM, Dmenu, and ncmpcpp are using default keybindings, so lookup those programs to see how they workin detail.
 
-###Overview of key bindings:
+### Overview of key bindings:
 
 Alt + Enter # Open terminal.
 Alt + [number] # Switch to the [number] tag/workspace.
