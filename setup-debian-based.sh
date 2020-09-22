@@ -1,24 +1,29 @@
 #!/bin/sh
 
-# Non-destructive, Debian Linux-based (e.g. Mint, Ubuntu, DEBIAN!) setup of ComfyOS.
-# Creates a new user for setup.
+# Debian Linux-based (e.g. Mint, Ubuntu, DEBIAN!) setup of ComfyOS.
 # Run with options -u newusername -p passwordfornewusername, lest the defaults be used.
+# Or run with -c  and -p passwordofcurrentuser to use the current user, and possibly overwrite some config files.
 
 username=gnuslashdebianlinux
 password=password
 
-while getopts ":u:p:" opt; do
+while getopts ":u:p:c" opt; do
   case ${opt} in
     u ) username=${OPTARG}
       ;;
     p ) password=${OPTARG}
       ;;
+    c ) username=${USER}
+      ;;
   esac
 done
 
+if [ $username != ${USER} ] # -c option is not used
+then
 # Create new user with given password and add user to wheel, audio, and video groups
 sudo useradd -m -G wheel,audio,video "$username"
 (echo "$password"; echo "$password") | sudo passwd "$username"
+fi # end of -c option is not used
 
 # Nothing with running as $username seems to be working like I want, so just temporarily change permissions for executing/writing to new user's home folder:
 
