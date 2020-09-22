@@ -25,12 +25,8 @@ sudo useradd -m -G sudo,audio,video "$username"
 (echo "$password"; echo "$password") | sudo passwd "$username"
 fi # end of -c option is not used
 
-# Nothing with running as $username seems to be working like I want, so just temporarily change permissions for executing/writing to new user's home folder:
-
-sudo chmod 733 /home/"$username"
-
-cat > /home/${username}/new-user-setup.sh <<End-of-message
-(echo "$password"; echo; echo; echo) | sudo -S apt install xorg xinit zsh git neovim firefox-esr feh sxiv fonts-libertine neofetch htop mpd ncmpcpp libxext-dev libxcb1-dev libxcb-damage0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-render-util0-dev libxcb-render0-dev libxcb-randr0-dev libxcb-composite0-dev libxcb-image0-dev libxcb-present-dev libxcb-xinerama0-dev libxcb-glx0-dev libpixman-1-dev libdbus-1-dev libconfig-dev libgl1-mesa-dev  libpcre2-dev libevdev-dev uthash-dev libev-dev libx11-xcb-dev cmake python3 ninja-build meson libpcre3 libpcre3-dev python3-pip pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev
+# Install packages before running as username
+sudo -S apt install xorg xinit zsh git neovim firefox-esr feh sxiv fonts-libertine neofetch htop mpd ncmpcpp libxext-dev libxcb1-dev libxcb-damage0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-render-util0-dev libxcb-render0-dev libxcb-randr0-dev libxcb-composite0-dev libxcb-image0-dev libxcb-present-dev libxcb-xinerama0-dev libxcb-glx0-dev libpixman-1-dev libdbus-1-dev libconfig-dev libgl1-mesa-dev  libpcre2-dev libevdev-dev uthash-dev libev-dev libx11-xcb-dev cmake python3 ninja-build meson libpcre3 libpcre3-dev python3-pip pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev
 
 mkdir -p ~/Programs
 
@@ -52,17 +48,19 @@ pip3 install --user .
 # Add local 'pip' to PATH:
 # (In your .bashrc, .zshrc etc)
 export PATH="${PATH}:${HOME}/.local/bin/"
+# Also new user, f used
+if [ $username != ${USER} ] # -c option is not used
+then
+export PATH="${PATH}:home/${username}/.local/bin/"
+fi
 
-# Build alacritty
+# Build/Install alacritty
 
 mkdir -p ~/Programs/alacritty
 cd ~/Programs/alacrity
 wget https://github.com/alacritty/alacritty/archive/v0.5.0.tar.gz
 tar -zxvf v0.5.0.tar.gz
 cd v0.5.0
-
-#git clone https://github.com/alacritty/alacritty.git
-#cd alacritty
 
 # Rustup
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > rustup.sh
@@ -79,6 +77,11 @@ sudo cp extra/logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg
 sudo desktop-file-install extra/linux/Alacritty.desktop
 sudo update-desktop-database
 
+# Nothing with running as $username seems to be working like I want, so just temporarily change permissions for executing/writing to new user's home folder:
+
+sudo chmod 733 /home/"$username"
+
+cat > /home/${username}/new-user-setup.sh <<End-of-message
 # Download Fall wallpaper from Pexels under CC0 license
 mkdir -p ~/Pictures/Wallpapers
 curl https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg > ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
