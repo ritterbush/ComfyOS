@@ -21,7 +21,7 @@ done
 if [ $username != ${USER} ] # -c option is not used
 then
 # Create new user with given password and add user to wheel, audio, and video groups
-sudo useradd -m -G wheel,audio,video "$username"
+sudo useradd -m -G sudo,audio,video "$username"
 (echo "$password"; echo "$password") | sudo passwd "$username"
 fi # end of -c option is not used
 
@@ -51,7 +51,7 @@ pip3 install --user .
 
 # Add local 'pip' to PATH:
 # (In your .bashrc, .zshrc etc)
-#export PATH="${PATH}:${HOME}/.local/bin/"
+export PATH="${PATH}:${HOME}/.local/bin/"
 
 # Build alacritty
 
