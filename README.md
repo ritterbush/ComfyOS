@@ -9,9 +9,8 @@ But it is the look, feel, and functionality of the OS for the user. See below to
 
 ### First curl/wget/download the correct script, be it Arch or Debian-based, and then
 ### Run it with the options -u [username] and -p [password] to make a new user username and password to try it out.
-
-### OR, run it with just option -c to use the current user and use CAUTION, because certain files, such as .zshrc, 
-### .xinitrc, and some other config files will get overwritten!
+### OR, run it with the options -c and -p [current user password] to use the current user and use CAUTION, 
+### because certain files, such as .zshrc, .xinitrc, and some other config files will get overwritten!
 
 #### This script installs and makes use of:
 
