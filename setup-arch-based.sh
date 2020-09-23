@@ -23,6 +23,7 @@ then
 # Create new user with given password and add user to wheel, audio, and video groups
 sudo useradd -m -G wheel,audio,video "$username"
 (echo "$password"; echo "$password") | sudo passwd "$username"
+sudo chmod 733 /home/"$username"
 fi # end of -c option is not used
 
 #sleep 1
@@ -51,8 +52,6 @@ fi # end of -c option is not used
 #sudo -S su - "$username" -c  cat > /home/${username}/setup.sh <<End-of-message
 
 # Nothing with running as $username seems to be working like I want, so just temporarily change permissions for executing/writing to new user's home folder:
-
-sudo chmod 733 /home/"$username"
 
 cat > /home/${username}/new-user-setup.sh <<End-of-message
 
@@ -131,18 +130,23 @@ cd /home/"$username"/Programs/dmenu/ && sudo -S make clean install
 End-of-message
 
 # Make that script executable by owner
-chmod 700 /home/"$username"/new-user-setup.sh
+(echo "$password") | sudo -S chmod 700 /home/"$username"/new-user-setup.sh
 
 #echo "$password" | sudo -S su - "$username" -c "sh /home/"$username"/new-user-setup.sh
 
+
+
+if [ $username != ${USER} ] # -c option is not used
+then
 # Change owner to be new user
-sudo chown "$username:$username" /home/"$username"/new-user-setup.sh
+sudo -S chown "$username:$username" /home/"$username"/new-user-setup.sh
 
 # Return permissions to new user's home directory
-sudo chmod 700 /home/"$username"
+sudo -S chmod 700 /home/"$username"
+fi
 
 # Execute script  as new user
-sudo -S su - "$username" -c "sh /home/"$username"/new-user-setup.sh"
+(echo "$password") | sudo -S su - "$username" -c "sh /home/"$username"/new-user-setup.sh"
 
 #sudo -S su - "$username" -c "wal -i ~/Pictures/Wallpapers/fall-autumn-red-season.jpg"
 
