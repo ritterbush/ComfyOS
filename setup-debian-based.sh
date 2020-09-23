@@ -71,12 +71,13 @@ mkdir -p ~/Programs/alacritty
 cd ~/Programs/alacritty
 wget https://github.com/alacritty/alacritty/archive/v0.5.0.tar.gz
 tar -zxvf v0.5.0.tar.gz
-cd v0.5.0
+cd alacritty-0.5.0
 
 # Install Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > rustup.sh
 chmod +x ./rustup.sh
 ./rustup.sh -y
+#export PATH="\${PATH}:\$HOME/.cargo/bin/" # Probably Needed, test later
 source $HOME/.cargo/env
 rustup override set stable
 rustup update stable
