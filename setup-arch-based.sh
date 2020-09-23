@@ -41,7 +41,7 @@ fi # end of -c option is not used
 #sudo -S su - "$username" -c "curl https://berkeley.edu > /home/${username}/berkeley.html"
 
 # To avoid possible conflicts with packages that have not been upgraded in a while, do not update packagelist, but install packages as the list currently stands
-#sudo su - "$username" -c "(echo "$password"; echo; echo; echo) | sudo pacman -S xorg xorg-xinit zsh git alacritty neovim firefox picom xwallpaper sxiv python-pywal neofetch htop mpd ncmpcpp"
+#sudo su - "$username" -c "(echo "$password"; echo; echo; echo) | sudo pacman -S xorg xorg-xinit zsh exa git alacritty neovim firefox picom feh sxiv ttf-linux-libertine python-pywal neofetch htop mpd ncmpcpp"
 
 #sudo su - "$username"
 # Run commands as newly created user
@@ -56,7 +56,7 @@ sudo chmod 733 /home/"$username"
 
 cat > /home/${username}/new-user-setup.sh <<End-of-message
 
-(echo "$password"; echo; echo; echo) | sudo -S pacman -S xorg xorg-xinit zsh git alacritty neovim firefox picom feh sxiv ttf-linux-libertine python-pywal neofetch htop mpd ncmpcpp
+(echo "$password"; echo; echo; echo) | sudo -S pacman -S xorg xorg-xinit zsh exa git alacritty neovim firefox picom feh sxiv ttf-linux-libertine python-pywal neofetch htop mpd ncmpcpp
 
 # Download Fall wallpaper from Pexels under CC0 license
 mkdir -p ~/Pictures/Wallpapers
