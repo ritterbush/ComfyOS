@@ -35,7 +35,7 @@ cat > /home/${username}/new-user-setup.sh <<End-of-message
 # Directory for building programs from source
 mkdir -p ~/Programs
 
-# Build picom
+# Build/Install picom
 cd ~/Programs
 git clone https://github.com/yshui/picom
 cd picom
@@ -44,7 +44,7 @@ meson --buildtype=release . build
 ninja -C build
 ninja -C build install
 
-# Build py-wal
+# Build/Install py-wal
 cd ~/Programs
 git clone https://github.com/dylanaraps/pywal
 cd pywal
@@ -52,15 +52,21 @@ pip3 install --user .
 
 # Add local 'pip' to PATH:
 # (In your .bashrc, .zshrc etc)
-export PATH="${PATH}:${HOME}/.local/bin/"
+#export PATH="${PATH}:${HOME}/.local/bin/"
 # Also new user, f used
 #if [ $username != ${USER} ] # -c option is not used
 #then
 #export PATH="${PATH}:home/${username}/.local/bin/"
 #fi
 
-# Build/Install alacritty
+# Install latest stable Exa
+mkdir -p ~/Programs/exa
+cd ~/Programs/exa
+wget -c https://github.com/ogham/exa/releases/download/v0.9.0/exa-linux-x86_64-0.9.0.zip
+unzip exa-linux-x86_64-0.9.0.zip
+sudo mv exa-linux-x86_64  /usr/local/bin/exa
 
+# Git clone latest stable Alacritty
 mkdir -p ~/Programs/alacritty
 cd ~/Programs/alacritty
 wget https://github.com/alacritty/alacritty/archive/v0.5.0.tar.gz
@@ -74,9 +80,9 @@ chmod +x ./rustup.sh
 source $HOME/.cargo/env
 rustup override set stable
 rustup update stable
-# build
+# Build Alacritty
 cargo build --release
-# install
+# install Alacritty
 echo "$password" | sudo -S cp target/release/alacritty /usr/local/bin # or anywhere else in $PATH
 echo "$password" | sudo -S cp logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg
 echo "$password" | sudo -S desktop-file-install extra/linux/Alacritty.desktop
@@ -87,15 +93,20 @@ echo "$password" | sudo -S update-desktop-database
 mkdir -p ~/Pictures/Wallpapers
 curl https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg > ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
 # Generate py-wal cache files before building dwm and dmenu
-wal -i ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
+/home/${username}/.local/bin/wal -i ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
 sleep 3
 # Directory for building programs from source
 mkdir -p ~/Programs/files
 # Get my dwm/dmenu desktop environment, various dotfiles, and scripts
 git clone https://github.com/ritterbush/files ~/Programs/files
 
+# Put dwm and dmenu in a good spot
 mv ~/Programs/files/dwm ~/Programs/
 mv ~/Programs/files/dmenu ~/Programs/
+
+# Copy start file for login managers
+cp ~/Programs/files/dwm.desktop ~/.xinitrc
+
 # xinitrc
 cp ~/Programs/files/.xinitrc ~/.xinitrc
 # zshrc
