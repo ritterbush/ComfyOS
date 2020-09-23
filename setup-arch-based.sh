@@ -67,23 +67,26 @@ wal -i ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
 sleep 3
 
 # Directory for building programs from source
-mkdir ~/Programs
+mkdir -p ~/Programs/files
 
 # Get my dwm/dmenu desktop environment, various dotfiles, and scripts
-git clone https://github.com/ritterbush/files ~/Programs/
+git clone https://github.com/ritterbush/files ~/Programs/files/
+
+mv ~/Programs/files/dwm ~/Programs/
+mv ~/Programs/files/dmenu ~/Programs/
 
 # xinitrc
-cp ~/Programs/.xinitrc ~/.xinitrc
+cp ~/Programs/files/.xinitrc ~/.xinitrc
 
 # zshrc
-cp ~/Programs/.zshrc ~/.zshrc
+cp ~/Programs/files/.zshrc ~/.zshrc
 
 # change shell to zsh
 (echo "$password"; echo /bin/zsh) | chsh 
 
 # shell scripts, neovim config and plugins, alacritty config 
-cp -r ~/Programs/.local ~/
-cp -r ~/Programs/.config ~/
+cp -r ~/Programs/files/.local ~/
+cp -r ~/Programs/files/.config ~/
 
 # picom compositor config
 mkdir -p ~/.config/picom
