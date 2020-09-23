@@ -23,15 +23,16 @@ then
 # Create new user with given password and add user to wheel, audio, and video groups
 sudo useradd -m -G sudo,audio,video "$username"
 (echo "$password"; echo "$password") | sudo passwd "$username"
+sudo chmod 733 /home/"$username"
 fi # end of -c option is not used
 
 
 # Nothing with running as $username seems to be working like I want, so just temporarily change permissions for executing/writing to new user's home folder:
-sudo chmod 733 /home/"$username"
 
 cat > /home/${username}/new-user-setup.sh <<End-of-message
-(echo "$password"; echo; echo; echo) | -S apt install xorg xinit zsh git neovim firefox feh sxiv imagemagick fonts-linuxlibertine neofetch htop mpd ncmpcpp libxinerama-dev libxft2-dev libxext-dev libxcb1-dev libxcb-damage0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-render-util0-dev libxcb-render0-dev libxcb-randr0-dev libxcb-composite0-dev libxcb-image0-dev libxcb-present-dev libxcb-xinerama0-dev libxcb-glx0-dev libpixman-1-dev libdbus-1-dev libconfig-dev libgl1-mesa-dev  libpcre2-dev libevdev-dev uthash-dev libev-dev libx11-xcb-dev cmake python3 ninja-build meson libpcre3 libpcre3-dev python3-pip pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev
+(echo "$password"; echo; echo; echo) | sudo -S apt install xorg xinit zsh git neovim firefox feh sxiv imagemagick fonts-linuxlibertine neofetch htop mpd ncmpcpp libxinerama-dev libxft2-dev libxext-dev libxcb1-dev libxcb-damage0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-render-util0-dev libxcb-render0-dev libxcb-randr0-dev libxcb-composite0-dev libxcb-image0-dev libxcb-present-dev libxcb-xinerama0-dev libxcb-glx0-dev libpixman-1-dev libdbus-1-dev libconfig-dev libgl1-mesa-dev  libpcre2-dev libevdev-dev uthash-dev libev-dev libx11-xcb-dev cmake python3 ninja-build meson libpcre3 libpcre3-dev python3-pip pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev
 
+# Directory for building programs from source
 mkdir -p ~/Programs
 
 # Build picom
@@ -66,7 +67,7 @@ wget https://github.com/alacritty/alacritty/archive/v0.5.0.tar.gz
 tar -zxvf v0.5.0.tar.gz
 cd v0.5.0
 
-# Rustup
+# Install Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > rustup.sh
 chmod +x ./rustup.sh
 ./rustup.sh -y
@@ -76,10 +77,10 @@ rustup update stable
 # build
 cargo build --release
 # install
-sudo cp target/release/alacritty /usr/local/bin # or anywhere else in $PATH
-sudo cp logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg
-sudo desktop-file-install extra/linux/Alacritty.desktop
-sudo update-desktop-database
+echo "$password" | sudo -S cp target/release/alacritty /usr/local/bin # or anywhere else in $PATH
+echo "$password" | sudo -S cp logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg
+echo "$password" | sudo -S desktop-file-install extra/linux/Alacritty.desktop
+echo "$password" | sudo -S update-desktop-database
 
 
 # Download Fall wallpaper from Pexels under CC0 license
@@ -142,18 +143,21 @@ cd /home/"$username"/Programs/dmenu/ && sudo -S make clean install
 End-of-message
 
 # Make that script executable by owner
-chmod 700 /home/"$username"/new-user-setup.sh
+(echo "$password") | sudo -S chmod 700 /home/"$username"/new-user-setup.sh
 
 #echo "$password" | sudo -S su - "$username" -c "sh /home/"$username"/new-user-setup.sh
 
+if [ $username != ${USER} ] # -c option is not used
+then
 # Change owner to be new user
-sudo chown "$username:$username" /home/"$username"/new-user-setup.sh
+sudo -S chown "$username:$username" /home/"$username"/new-user-setup.sh
 
 # Return permissions to new user's home directory
-sudo chmod 700 /home/"$username"
+sudo -S chmod 700 /home/"$username"
+fi
 
-# Execute script  as new user
-sudo -S su - "$username" -c "sh /home/"$username"/new-user-setup.sh"
+# Execute script as new or current user
+(echo "$password") | sudo -S su - "$username" -c "sh /home/"$username"/new-user-setup.sh"
 
 #sudo -S su - "$username" -c "wal -i ~/Pictures/Wallpapers/fall-autumn-red-season.jpg"
 
