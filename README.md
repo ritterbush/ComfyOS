@@ -1,4 +1,3 @@
-# Still Testing -- Do Not Use
 # ComfyOS
 ### Seasonal Comfort OS
 
