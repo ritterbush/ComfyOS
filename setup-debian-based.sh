@@ -110,6 +110,9 @@ echo "$password" | sudo -S cp ~/Programs/files/dwm.desktop /usr/share/xsessions/
 
 # xinitrc
 cp ~/Programs/files/.xinitrc ~/.xinitrc
+# link it to .xsession
+ln -s ~/.xinitrc ~/.xsession
+
 # zshrc
 cp ~/Programs/files/.zshrc ~/.zshrc
 # change shell to zsh
