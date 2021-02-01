@@ -1,6 +1,7 @@
 # ComfyOS
 ### Seasonal Comfort OS
 
+![/comfy/](/ComfyOSWinter.png)
 ![/comfy/](/ComfyOS.png)
 
 Okay, it's not really an OS, since it assumes you already have an Arch or Debian-based distro installed.
