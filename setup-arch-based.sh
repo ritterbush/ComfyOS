@@ -63,9 +63,11 @@ mkdir -p ~/Pictures/Wallpapers
 curl https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg > ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
 #winter
 curl https://images.pexels.com/photos/688660/pexels-photo-688660.jpeg > ~/Pictures/Wallpapers/winter-snow-season.jpg
+#Spring
+curl https://images.pexels.com/photos/570041/pexels-photo-570041.jpeg > ~/Pictures/Wallpapers/spring-flower-season.jpg
 
 # Generate py-wal cache files before building dwm and dmenu
-wal -i ~/Pictures/Wallpapers/winter-snow-season.jpg
+wal -i ~/Pictures/Wallpapers/spring-flower-season.jpg
 sleep 3
 
 # Directory for building programs from source
@@ -101,7 +103,7 @@ cp /etc/xdg/picom.conf.example ~/.config/picom/picom.conf
 #~/.local/bin/dwm-opacity.sh 70
 sed -i "s/static const unsigned int baralpha = .*/static const unsigned int baralpha = 0xb3;/" ~/Programs/dwm/config.def.h
 #~/.local/bin/wallpaper-and-colors.sh ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
-sed -i "5s|.*|filepath=~/Pictures/Wallpapers/winter-snow-season.jpg|" ~/.local/bin/wallpaper-and-colors.sh
+sed -i "5s|.*|filepath=~/Pictures/Wallpapers/spring-flower-season.jpg|" ~/.local/bin/wallpaper-and-colors.sh
 #xwallpaper --zoom ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
 #nitrogen --random ~/Pictures/Wallpapers/
 sed -i "s/static const char norm_fg\[\] = .*/\$(sed -n 1p ~/.cache/wal/colors-wal-dwm.h)/" ~/Programs/dwm/config.def.h
