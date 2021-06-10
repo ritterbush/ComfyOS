@@ -1,6 +1,7 @@
 # ComfyOS
 ### Seasonal Comfort OS
 
+![/comfy/](/ComfyOSSpring.png)
 ![/comfy/](/ComfyOSWinter.png)
 ![/comfy/](/ComfyOS.png)
 
