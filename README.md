@@ -1,10 +1,12 @@
 # ComfyOS
 ### Seasonal Comfort OS
 
-![/comfy/](/ComfyOSSummer.png)
-![/comfy/](/ComfyOSSpring.png)
-![/comfy/](/ComfyOSWinter.png)
 ![/comfy/](/ComfyOS.png)
+![/comfy/](/ComfyOSWinter.png)
+![/comfy/](/ComfyOSSpring.png)
+![/comfy/](/ComfyOSSummer.png)
+
+
 
 Okay, it's not really an OS, since it assumes you already have an Arch or Debian-based distro installed.
 But it is the look, feel, and functionality of the OS for the user. See below to see what it uses.
