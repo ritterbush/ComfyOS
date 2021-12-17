@@ -67,7 +67,7 @@ pip3 install --user .
 # Install latest stable Exa
 mkdir -p ~/Programs/exa
 cd ~/Programs/exa
-wget -c https://github.com/ogham/exa/releases/tag/v0.10.1/exa-linux-x86_64-v0.10.1.zip
+wget -c https://github.com/ogham/exa/releases/download/v0.10.1/exa-linux-x86_64-v0.10.1.zip
 unzip exa-linux-x86_64-0.10.1.zip
 sudo mv exa-linux-x86_64  /usr/local/bin/exa
 
