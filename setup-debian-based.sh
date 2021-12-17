@@ -69,7 +69,8 @@ mkdir -p ~/Programs/exa
 cd ~/Programs/exa
 wget -c https://github.com/ogham/exa/releases/download/v0.10.1/exa-linux-x86_64-v0.10.1.zip
 unzip exa-linux-x86_64-0.10.1.zip
-sudo mv exa-linux-x86_64  /usr/local/bin/exa
+sudo mv ~/Programs/exa/bin/exa  /usr/local/bin/
+sudo cp ~/Programs/exa/completions/exa.zsh /usr/local/share/zsh/site-functions/_exa
 
 # Download Fall wallpaper from Pexels under CC0 license
 mkdir -p ~/Pictures/Wallpapers
