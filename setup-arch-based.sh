@@ -33,9 +33,6 @@ fi # end of -c option is not used
 #echo $(whoami)
 #sleep 1
 
-#echo COOL
-#sleep 1
-
 #sudo runuser $username
 
 #This curl cmd works but the cat cmd below does not, OK!
