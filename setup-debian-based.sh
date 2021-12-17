@@ -30,7 +30,12 @@ fi # end of -c option is not used
 # Nothing with running as $username seems to be working like I want, so just temporarily change permissions for executing/writing to new user's home folder:
 
 cat > /home/${username}/new-user-setup.sh <<End-of-message
-(echo "$password"; echo; echo; echo) | sudo -S apt install xorg xinit zsh git neovim firefox feh sxiv imagemagick fonts-linuxlibertine neofetch htop mpd ncmpcpp suckless-tools asciidoc libxinerama-dev libxft2-dev libxext-dev libxcb1-dev libxcb-damage0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-render-util0-dev libxcb-render0-dev libxcb-randr0-dev libxcb-composite0-dev libxcb-image0-dev libxcb-present-dev libxcb-xinerama0-dev libxcb-glx0-dev libpixman-1-dev libdbus-1-dev libconfig-dev libgl1-mesa-dev  libpcre2-dev libevdev-dev uthash-dev libev-dev libx11-xcb-dev cmake python3 ninja-build meson libpcre3 libpcre3-dev python3-pip pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev
+(echo "$password"; echo; echo; echo) | sudo -S apt install xorg xinit zsh git neovim firefox feh sxiv imagemagick fonts-linuxlibertine neofetch htop mpd ncmpcpp suckless-tools asciidoc libxinerama-dev libxft2-dev libxext-dev libxcb1-dev libxcb-damage0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-render-util0-dev libxcb-render0-dev libxcb-randr0-dev libxcb-composite0-dev libxcb-image0-dev libxcb-present-dev libxcb-xinerama0-dev libxcb-glx0-dev libpixman-1-dev libdbus-1-dev libconfig-dev libgl1-mesa-dev libpcre2-dev libevdev-dev uthash-dev libev-dev libx11-xcb-dev cmake python3 ninja-build meson libpcre3 libpcre3-dev python3-pip pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev
+
+# Install Alacritty by adding a PPA repository
+(echo "$password") | sudo -S add-apt-repository ppa:aslatter/ppa
+(echo "$password") | sudo -S apt update
+(echo "$password") | sudo -S apt install alacritty
 
 # Directory for building programs from source
 mkdir -p ~/Programs
@@ -65,29 +70,6 @@ cd ~/Programs/exa
 wget -c https://github.com/ogham/exa/releases/tag/v0.10.1/exa-linux-x86_64-0.10.1.zip
 unzip exa-linux-x86_64-0.10.1.zip
 sudo mv exa-linux-x86_64  /usr/local/bin/exa
-
-# Git clone latest stable Alacritty
-mkdir -p ~/Programs/alacritty
-cd ~/Programs/alacritty
-wget https://github.com/alacritty/alacritty/archive/v0.5.0.tar.gz
-tar -zxvf v0.5.0.tar.gz
-cd alacritty-0.5.0
-# Install Rust
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > rustup.sh
-chmod +x ./rustup.sh
-./rustup.sh -y
-#export PATH="\${PATH}:\$HOME/.cargo/bin/" # Probably Needed, test later
-source $HOME/.cargo/env
-rustup override set stable
-rustup update stable
-# Build Alacritty
-cargo build --release
-# install Alacritty
-echo "$password" | sudo -S cp target/release/alacritty /usr/local/bin # or anywhere else in $PATH
-echo "$password" | sudo -S cp logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg
-echo "$password" | sudo -S desktop-file-install extra/linux/Alacritty.desktop
-echo "$password" | sudo -S update-desktop-database
-
 
 # Download Fall wallpaper from Pexels under CC0 license
 mkdir -p ~/Pictures/Wallpapers
