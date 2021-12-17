@@ -86,8 +86,10 @@ curl https://images.pexels.com/photos/7084186/pexels-photo-7084186.jpeg > ~/Pict
 # Generate py-wal cache files before building dwm and dmenu
 /home/${username}/.local/bin/wal -i ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
 sleep 3
+
 # Directory for building programs from source
 mkdir -p ~/Programs/files
+
 # Get my dwm/dmenu desktop environment, various dotfiles, and scripts
 git clone https://github.com/ritterbush/files ~/Programs/files
 
@@ -105,14 +107,18 @@ ln -s ~/.xinitrc ~/.xsession
 
 # zshrc
 cp ~/Programs/files/.zshrc ~/.zshrc
+
 # change shell to zsh
 (echo "$password"; echo /bin/zsh) | chsh 
+
 # shell scripts, neovim config and plugins, alacritty config 
 cp -r ~/Programs/files/.local ~/
 cp -r ~/Programs/files/.config ~/
+
 # picom compositor config
 mkdir -p ~/.config/picom
 cp /etc/xdg/picom.conf.example ~/.config/picom/picom.conf
+
 # Setup colors and opacity, and these also build and install dwm and dmenu
 # Run again with different numbers to change
 ~/.local/bin/alacritty-opacity.sh 70
