@@ -34,7 +34,7 @@ cat > /home/${username}/new-user-setup.sh <<End-of-message
 
 
 # Install Alacritty by adding a PPA repository
-(echo "$password") | sudo -S add-apt-repository ppa:aslatter/ppa
+(echo "$password") | sudo -S add-apt-repository ppa:aslatter/ppa -y
 (echo "$password") | sudo -S apt update
 (echo "$password") | sudo -S apt install alacritty
 
@@ -77,7 +77,7 @@ pip3 install --user .
 mkdir -p ~/Programs/exa
 cd ~/Programs/exa
 wget -c https://github.com/ogham/exa/releases/download/v0.10.1/exa-linux-x86_64-v0.10.1.zip
-unzip exa-linux-x86_64-0.10.1.zip
+unzip exa-linux-x86_64-v0.10.1.zip
 sudo mv ~/Programs/exa/bin/exa  /usr/local/bin/
 sudo cp ~/Programs/exa/completions/exa.zsh /usr/local/share/zsh/site-functions/_exa
 
