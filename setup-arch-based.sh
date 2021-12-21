@@ -152,10 +152,12 @@ fi
 # Execute script  as new user
 (echo "$password") | sudo -S su - "$username" -c "sh /home/"$username"/new-user-setup.sh"
 
+# Replace password from script with PASSWORD12345
+(echo "$password") | sudo -S sed -i "s/$password/PASSWORD12345/g" /home/"$username"/new-user-setup.sh
+
 #sudo -S su - "$username" -c "wal -i ~/Pictures/Wallpapers/fall-autumn-red-season.jpg"
 
 #sudo -S su - "$username" -c "xwallpaper --zoom ~/Pictures/Wallpapers/fall-autumn-red-season.jpg"
 #xwallpaper --zoom ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
-
 
 echo done
