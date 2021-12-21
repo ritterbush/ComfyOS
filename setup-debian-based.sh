@@ -34,7 +34,7 @@ cat > /home/${username}/new-user-setup.sh <<End-of-message
 
 
 # Install Alacritty by adding a PPA repository
-(echo "$password") | sudo -S add-apt-repository ppa:aslatter/ppa -y
+(echo "$password") | sudo -S add-apt-repository ppa:mmstick76/alacritty -y
 (echo "$password") | sudo -S apt update
 (echo "$password") | sudo -S apt install alacritty
 
