@@ -109,7 +109,6 @@ mv ~/Programs/files/dwm ~/Programs/
 mv ~/Programs/files/dmenu ~/Programs/
 
 # Copy start file for login managers
-sed -i "s/FFFFF/$username/" ~/Programs/files/dwm.desktop
 echo "$password" | sudo -S cp ~/Programs/files/dwm.desktop /usr/share/xsessions/dwm.desktop
 
 # xinitrc
