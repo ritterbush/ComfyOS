@@ -51,7 +51,6 @@ fi # end of -c option is not used
 # Nothing with running as $username seems to be working like I want, so just temporarily change permissions for executing/writing to new user's home folder:
 
 cat > /home/${username}/new-user-setup.sh <<End-of-message
-
 (echo "$password"; echo; echo; echo) | sudo -S pacman -S xorg xorg-xinit zsh exa git alacritty neovim firefox picom feh sxiv ttf-linux-libertine python-pywal neofetch htop mpd ncmpcpp
 
 # Download Fall wallpaper from Pexels under CC0 license
@@ -75,11 +74,17 @@ mkdir -p ~/Programs/files
 # Get my dwm/dmenu desktop environment, various dotfiles, and scripts
 git clone https://github.com/ritterbush/files ~/Programs/files/
 
+# Put dwm and dmenu in a good spot
 mv ~/Programs/files/dwm ~/Programs/
 mv ~/Programs/files/dmenu ~/Programs/
 
+# Copy start file for login managers
+echo "$password" | sudo -S cp ~/Programs/files/dwm.desktop /usr/share/xsessions/dwm.desktop
+
 # xinitrc
 cp ~/Programs/files/.xinitrc ~/.xinitrc
+# link it to .xsession
+ln -s ~/.xinitrc ~/.xsession
 
 # zshrc
 cp ~/Programs/files/.zshrc ~/.zshrc
@@ -111,7 +116,6 @@ sed -i "s/static const char norm_border\[\] = .*/\$(sed -n 3p ~/.cache/wal/color
 sed -i "s/static const char sel_fg\[\] = .*/\$(sed -n 5p ~/.cache/wal/colors-wal-dwm.h)/" ~/Programs/dwm/config.def.h
 sed -i "s/static const char sel_bg\[\] = .*/\$(sed -n 6p ~/.cache/wal/colors-wal-dwm.h)/" ~/Programs/dwm/config.def.h
 sed -i "s/static const char sel_border\[\] = .*/\$(sed -n 7p ~/.cache/wal/colors-wal-dwm.h)/" ~/Programs/dwm/config.def.h
-
 sed -i "s/^.*\[SchemeNorm\].*/\$(sed -n 3p ~/.cache/wal/colors-wal-dmenu.h)/" ~/Programs/dmenu/config.def.h
 sed -i "s/^.*\[SchemeSel\].*/\$(sed -n 4p ~/.cache/wal/colors-wal-dmenu.h)/" ~/Programs/dmenu/config.def.h
 sed -i "s/^.*\[SchemeOut\].*/\$(sed -n 5p ~/.cache/wal/colors-wal-dmenu.h)/" ~/Programs/dmenu/config.def.h
@@ -137,8 +141,6 @@ End-of-message
 (echo "$password") | sudo -S chmod 700 /home/"$username"/new-user-setup.sh
 
 #echo "$password" | sudo -S su - "$username" -c "sh /home/"$username"/new-user-setup.sh
-
-
 
 if [ $username != ${USER} ] # -c option is not used
 then
