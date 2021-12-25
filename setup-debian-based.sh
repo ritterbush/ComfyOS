@@ -4,6 +4,8 @@
 # Run with options -u newusername -p passwordfornewusername, lest the defaults be used.
 # Or run with -c  and -p passwordofcurrentuser to use the current user, and possibly overwrite some config files.
 
+command -v apt || echo "ERROR: this script is for Debian-based systems. Apt is required."; exit
+
 show_usage(){
     printf "Usage:\n\n  $0 [options [parameters]]\n"
     printf "\n"
@@ -66,12 +68,10 @@ if [ $username != ${USER} ] # -c option is not used, or current user is given
 then
 # Create new user with given password and add user to wheel, audio, and video groups
 sudo useradd -m -G sudo,audio,video "$username" ||
-echo "Useradd failed. See 'man useradd', and section CAVEATS for allowed usernames." && exit 1
+echo "Useradd failed. See 'man useradd', and section CAVEATS for allowed usernames."; exit 1
 (echo "$password"; echo "$password") | sudo passwd "$username"
 sudo chmod 733 /home/"$username"
 fi # end of -c option is not used
-
-# Nothing with running as $username seems to be working like I want, so just temporarily change permissions for executing/writing to new user's home folder:
 
 cat > /home/${username}/new-user-setup.sh <<End-of-message
 (echo "$password"; echo; echo; echo) | sudo -S apt install xorg xinit zsh git firefox feh sxiv imagemagick fonts-linuxlibertine neofetch htop mpd ncmpcpp libxcb1-dev libxcb-damage0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-render-util0-dev libxcb-render0-dev libxcb-randr0-dev libxcb-composite0-dev libxcb-image0-dev libxcb-present-dev libxcb-xinerama0-dev libxcb-glx0-dev libpixman-1-dev libdbus-1-dev libconfig-dev libgl1-mesa-dev libpcre2-dev libpcre3-dev libevdev-dev uthash-dev libev-dev libx11-xcb-dev meson libxext-dev asciidoc cmake python3 python3-pip ninja-build libxinerama-dev
@@ -211,8 +211,6 @@ sed -i "s/^.*\[SchemeNormHighlight\] =.*/        \[SchemeNormHighlight\] = \{ \$
 
 cd /home/"$username"/Programs/dwm/ && sudo -S make clean install
 cd /home/"$username"/Programs/dmenu/ && sudo -S make clean install
-#wal -i ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
-
 End-of-message
 
 # Make that script executable by owner
@@ -234,10 +232,5 @@ fi
 
 # Replace password from script with PASSWORD12345
 (echo "$password") | sudo -S sed -i "s/$password/PASSWORD12345/g" /home/"$username"/new-user-setup.sh
-
-#sudo -S su - "$username" -c "wal -i ~/Pictures/Wallpapers/fall-autumn-red-season.jpg"
-
-#sudo -S su - "$username" -c "xwallpaper --zoom ~/Pictures/Wallpapers/fall-autumn-red-season.jpg"
-#xwallpaper --zoom ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
 
 echo done

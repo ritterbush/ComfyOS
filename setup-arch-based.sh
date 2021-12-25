@@ -4,6 +4,8 @@
 # Run with options -u newusername -p passwordfornewusername, lest the defaults be used.
 # Or run with -c  and -p passwordofcurrentuser to use the current user, and possibly overwrite some config files.
 
+command -v pacman || echo "ERROR: this script is for Arch-based systems. Pacman is required."; exit
+
 show_usage(){
     printf "Usage:\n\n  $0 [options [parameters]]\n"
     printf "\n"
@@ -66,34 +68,10 @@ if [ $username != ${USER} ] # -c option is not used, or current user is given
 then
 # Create new user with given password and add user to wheel, audio, and video groups
 sudo useradd -m -G wheel,audio,video "$username" ||
-echo "Useradd failed. See 'man useradd', and section CAVEATS for allowed usernames." && exit 1
+echo "Useradd failed. See 'man useradd', and section CAVEATS for allowed usernames."; exit 1
 (echo "$password"; echo "$password") | sudo passwd "$username"
 sudo chmod 733 /home/"$username"
 fi # end of -c option is not used
-
-#sleep 1
-
-#echo "$password" | su "$username"
-
-#echo $(whoami)
-#sleep 1
-
-#sudo runuser $username
-
-#This curl cmd works but the cat cmd below does not, OK!
-#sudo -S su - "$username" -c "curl https://berkeley.edu > /home/${username}/berkeley.html"
-
-# To avoid possible conflicts with packages that have not been upgraded in a while, do not update packagelist, but install packages as the list currently stands
-#sudo su - "$username" -c "(echo "$password"; echo; echo; echo) | sudo pacman -S xorg xorg-xinit zsh exa git alacritty neovim firefox picom feh sxiv ttf-linux-libertine python-pywal neofetch htop mpd ncmpcpp"
-
-#sudo su - "$username"
-# Run commands as newly created user
-#echo "$password" | sudo -S su - "$username" -c "sh /home/"$username"/archsetup.sh"
-
-# Create the chroot script that executes inside the new Arch system 
-#sudo -S su - "$username" -c  cat > /home/${username}/setup.sh <<End-of-message
-
-# Nothing with running as $username seems to be working like I want, so just temporarily change permissions for executing/writing to new user's home folder:
 
 cat > /home/${username}/new-user-setup.sh <<End-of-message
 (echo "$password"; echo; echo; echo) | sudo -S pacman -S xorg xorg-xinit zsh exa git alacritty neovim firefox picom feh sxiv ttf-linux-libertine python-pywal neofetch htop mpd ncmpcpp
@@ -178,8 +156,6 @@ sed -i "s/^.*\[SchemeNormHighlight\] =.*/        \[SchemeNormHighlight\] = \{ \$
 
 cd /home/"$username"/Programs/dwm/ && sudo -S make clean install
 cd /home/"$username"/Programs/dmenu/ && sudo -S make clean install
-#wal -i ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
-
 End-of-message
 
 # Make that script executable by owner
@@ -201,10 +177,5 @@ fi
 
 # Replace password from script with PASSWORD12345
 (echo "$password") | sudo -S sed -i "s/$password/PASSWORD12345/g" /home/"$username"/new-user-setup.sh
-
-#sudo -S su - "$username" -c "wal -i ~/Pictures/Wallpapers/fall-autumn-red-season.jpg"
-
-#sudo -S su - "$username" -c "xwallpaper --zoom ~/Pictures/Wallpapers/fall-autumn-red-season.jpg"
-#xwallpaper --zoom ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
 
 echo done
