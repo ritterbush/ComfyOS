@@ -4,28 +4,72 @@
 # Run with options -u newusername -p passwordfornewusername, lest the defaults be used.
 # Or run with -c  and -p passwordofcurrentuser to use the current user, and possibly overwrite some config files.
 
+show_usage(){
+    printf "Usage:\n\n  $0 [options [parameters]]\n"
+    printf "\n"
+    printf "Defaults when used without options:\n"
+    printf "\n"
+    printf "  Username: gnuslashdebianlinux\n"
+    printf "  Password: password\n"
+    printf "\n"
+    printf "Options [parameters]:\n"
+    printf "\n"
+    printf "  -u|--user [username]       Specify username; if special characters are\n                       used use quotes.\n"
+    printf "  -p|--password [password]   Specify password; if special characters are\n                       used use quotes.\n"
+    printf "  -c|--current               Use the current user; must also specify the 
+                             current user's password with -p or else the 
+                             default password is used.\n"
+    printf "  -h|--help                  Print this help.\n"
+exit
+}
+
 username=gnuslashdebianlinux
 password=password
 
-while getopts ":u:p:c" opt; do
-  case ${opt} in
-    u ) username=${OPTARG}
-      ;;
-    p ) password=${OPTARG}
-      ;;
-    c ) username=${USER}
-      ;;
-  esac
+while [ -n "$1" ]; do
+    case "$1" in
+        --username|-u)
+            if [ -n "$2"  ]
+            then
+	    	username="$2"
+	    	shift 2
+            else
+                echo "-u flag requires a username"
+                exit
+            fi
+            ;;
+        --current|-c)
+    	    username="$USER"
+	    shift
+            ;;
+        --help|-h)
+            show_usage
+            ;;
+        --password|-p)
+            if [ -n "$2"  ]
+	    then
+		password="$2"
+		shift 2
+	    else
+		echo "-p option requires a password"
+		exit
+	    fi
+            ;;
+        *)
+            echo "Unknown option $1"
+            show_usage
+            ;;
+    esac
 done
 
-if [ $username != ${USER} ] # -c option is not used
+if [ $username != ${USER} ] # -c option is not used, or current user is given
 then
 # Create new user with given password and add user to wheel, audio, and video groups
-sudo useradd -m -G sudo,audio,video "$username"
+sudo useradd -m -G sudo,audio,video "$username" ||
+echo "Useradd failed. See 'man useradd', and section CAVEATS for allowed usernames." && exit 1
 (echo "$password"; echo "$password") | sudo passwd "$username"
 sudo chmod 733 /home/"$username"
 fi # end of -c option is not used
-
 
 # Nothing with running as $username seems to be working like I want, so just temporarily change permissions for executing/writing to new user's home folder:
 
