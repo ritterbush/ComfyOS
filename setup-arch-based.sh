@@ -33,8 +33,8 @@ while [ -n "$1" ]; do
         --username|-u)
             if [ -n "$2"  ]
             then
-            	username="$2"
-            	shift 2
+		username="$2"
+		shift 2
             else
                 echo "-u flag requires a username"
                 exit

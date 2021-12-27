@@ -33,16 +33,16 @@ while [ -n "$1" ]; do
         --username|-u)
             if [ -n "$2"  ]
             then
-	    	username="$2"
-	    	shift 2
+		username="$2"
+		shift 2
             else
                 echo "-u flag requires a username"
                 exit
             fi
             ;;
         --current|-c)
-    	    username="$USER"
-	    shift
+            username="$USER"
+            shift
             ;;
         --help|-h)
             show_usage
