@@ -33,8 +33,8 @@ while [ -n "$1" ]; do
         --username|-u)
             if [ -n "$2"  ]
             then
-		username="$2"
-		shift 2
+                username="$2"
+                shift 2
             else
                 echo "-u flag requires a username"
                 exit
@@ -172,7 +172,7 @@ sudo -S chown "$username:$username" /home/"$username"/new-user-setup.sh
 sudo -S chmod 700 /home/"$username"
 fi
 
-# Execute script  as new user
+# Execute script as new or current user
 (echo "$password") | sudo -S su - "$username" -c "sh /home/"$username"/new-user-setup.sh"
 
 # Replace password from script with PASSWORD12345

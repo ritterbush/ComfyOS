@@ -33,8 +33,8 @@ while [ -n "$1" ]; do
         --username|-u)
             if [ -n "$2"  ]
             then
-		username="$2"
-		shift 2
+                username="$2"
+                shift 2
             else
                 echo "-u flag requires a username"
                 exit
@@ -49,13 +49,13 @@ while [ -n "$1" ]; do
             ;;
         --password|-p)
             if [ -n "$2"  ]
-	    then
-		password="$2"
-		shift 2
-	    else
-		echo "-p option requires a password"
-		exit
-	    fi
+            then
+                password="$2"
+                shift 2
+            else
+                echo "-p option requires a password"
+                exit
+            fi
             ;;
         *)
             echo "Unknown option $1"
@@ -146,7 +146,7 @@ sleep 3
 mkdir -p ~/Programs/files
 
 # Get my dwm/dmenu desktop environment, various dotfiles, and scripts
-git clone https://github.com/ritterbush/files ~/Programs/files
+git clone https://github.com/ritterbush/files ~/Programs/files/
 
 # Put dwm and dmenu in a good spot
 mv ~/Programs/files/dwm ~/Programs/
