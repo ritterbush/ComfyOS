@@ -16,7 +16,7 @@ show_usage(){
     printf "\n"
     printf "Options [parameters]:\n"
     printf "\n"
-    printf "  -u|--user [username]       Specify username; if special characters are\n                       used use quotes.\n"
+    printf "  -u|--username [username]   Specify username; if special characters are\n                       used use quotes.\n"
     printf "  -p|--password [password]   Specify password; if special characters are\n                       used use quotes.\n"
     printf "  -c|--current               Use the current user; must also specify the 
                              current user's password with -p or else the 
