@@ -95,6 +95,10 @@ curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
 chmod u+x nvim.appimage
 # Below we will alias 'nvim' in ~/.zshrc to execute this Appimage
 
+# Install Neovim Packer Plugin Manager
+git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+ ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+
 # Build/Install picom
 cd ~/Programs
 git clone https://github.com/yshui/picom
@@ -163,7 +167,7 @@ ln -s ~/.xinitrc ~/.xsession
 # zshrc
 cp ~/Programs/files/.zshrc ~/.zshrc
 
-# Set Neovim Appimage alias
+# Set Neovim Appimage zsh alias
 sed -i "s/^alias music=.*$/&\\nFFFFF/" ~/.zshrc
 sed -i "s|^FFFFF|alias nvim=\'~/Programs/neovim/nvim.appimage\'|" ~/.zshrc
 
@@ -173,6 +177,9 @@ sed -i "s|^FFFFF|alias nvim=\'~/Programs/neovim/nvim.appimage\'|" ~/.zshrc
 # shell scripts, neovim config and plugins, alacritty config 
 cp -r ~/Programs/files/.local ~/
 cp -r ~/Programs/files/.config ~/
+
+# vimrc
+cp ~/Programs/files/.vimrc ~/.vimrc
 
 # picom compositor config
 mkdir -p ~/.config/picom

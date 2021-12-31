@@ -94,6 +94,10 @@ sleep 3
 # Directory for building programs from source
 mkdir -p ~/Programs/files
 
+# Install Neovim Packer Plugin Manager
+git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+ ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+
 # Get my dwm/dmenu desktop environment, various dotfiles, and scripts
 git clone https://github.com/ritterbush/files ~/Programs/files/
 
@@ -118,6 +122,9 @@ cp ~/Programs/files/.zshrc ~/.zshrc
 # shell scripts, neovim config and plugins, alacritty config 
 cp -r ~/Programs/files/.local ~/
 cp -r ~/Programs/files/.config ~/
+
+# vimrc
+cp ~/Programs/files/.vimrc ~/.vimrc
 
 # picom compositor config
 mkdir -p ~/.config/picom
