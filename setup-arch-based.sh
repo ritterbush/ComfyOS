@@ -4,8 +4,6 @@
 # Run with options -u newusername -p passwordfornewusername, lest the defaults be used.
 # Or run with -c  and -p passwordofcurrentuser to use the current user, and possibly overwrite some config files.
 
-command -v pacman || echo "ERROR: this script is for Arch-based systems. Pacman is required."; exit
-
 show_usage(){
     printf "Usage:\n\n  $0 [options [parameters]]\n"
     printf "\n"
@@ -16,8 +14,8 @@ show_usage(){
     printf "\n"
     printf "Options [parameters]:\n"
     printf "\n"
-    printf "  -u|--username [username]   Specify username; if special characters are\n                       used use quotes.\n"
-    printf "  -p|--password [password]   Specify password; if special characters are\n                       used use quotes.\n"
+    printf "  -u|--username [username]   Specify username; if special characters are\n                             used use single quotes.\n"
+    printf "  -p|--password [password]   Specify password; if special characters are\n                             used use single quotes.\n"
     printf "  -c|--current               Use the current user; must also specify the 
                              current user's password with -p or else the 
                              default password is used.\n"
@@ -63,6 +61,9 @@ while [ -n "$1" ]; do
             ;;
     esac
 done
+
+# Check pacman is installed
+command -v pacman 2>&1 >/dev/null || echo "ERROR: this script is for Arch-based systems. Pacman is required."; exit
 
 if [ $username != ${USER} ] # -c option is not used, or current user is given
 then
