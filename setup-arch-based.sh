@@ -75,7 +75,7 @@ sudo chmod 733 /home/"$username"
 fi # end of -c option is not used
 
 cat > /home/${username}/new-user-setup.sh <<End-of-message
-(echo "$password"; echo; echo; echo) | sudo -S pacman -S xorg xorg-xinit zsh exa git alacritty neovim firefox picom feh sxiv ttf-linux-libertine python-pywal neofetch htop mpd ncmpcpp
+(echo "$password"; echo; echo; echo) | sudo -S pacman -S xorg xorg-xinit zsh exa git alacritty neovim ripgrep fd firefox picom feh sxiv ttf-linux-libertine python-pywal neofetch htop mpd ncmpcpp
 
 # Download Fall wallpaper from Pexels under CC0 license
 mkdir -p ~/Pictures/Wallpapers
