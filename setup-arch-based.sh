@@ -63,13 +63,13 @@ while [ -n "$1" ]; do
 done
 
 # Check pacman is installed
-command -v pacman 2>&1 >/dev/null || echo "ERROR: this script is for Arch-based systems. Pacman is required."; exit
+command -v pacman 2>&1 >/dev/null || { echo "ERROR: this script is for Arch-based systems. Pacman is required."; exit; }
 
 if [ $username != ${USER} ] # -c option is not used, or current user is given
 then
 # Create new user with given password and add user to wheel, audio, and video groups
 sudo useradd -m -G wheel,audio,video "$username" ||
-echo "Useradd failed. See 'man useradd', and section CAVEATS for allowed usernames."; exit 1
+{ echo "Useradd failed. See 'man useradd', and section CAVEATS for allowed usernames."; exit 1; }
 (echo "$password"; echo "$password") | sudo passwd "$username"
 sudo chmod 733 /home/"$username"
 fi # end of -c option is not used
