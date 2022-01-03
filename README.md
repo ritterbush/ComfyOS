@@ -38,10 +38,12 @@ Note that DWM, Dmenu, and ncmpcpp are using default keybindings, so lookup those
 
 #### Overview of key bindings:
 
-Alt + Enter # Open terminal.
+Alt + Shift + Enter # Open terminal.
 
 Alt + [number] # Switch to the [number] tag/workspace.
 
 Alt + p # Bring up Dmenu, and type to bring up program, Enter to open highlighed program; or Esc to exit Dmenu without opening any program.
 
 Alt + Shift + [number] # Move active window to the [number] tag/workspace.
+
+Alt + Enter # The focused window trades places with the more prominent window or vice versa of a single tag/workspace.
