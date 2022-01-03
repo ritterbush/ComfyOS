@@ -34,7 +34,7 @@ wp [file] # Similar to img, but you select a specific image file to become your 
 music # Opens ncmpcpp music player
 
 
-Note that DWM, Dmenu, and ncmpcpp are using default keybindings, so lookup those programs to see how they workin detail.
+Note that DWM, Dmenu, and ncmpcpp are using default keybindings, so lookup those programs to see how they work in detail.
 
 #### Overview of key bindings:
 
