@@ -80,25 +80,19 @@ cat > /home/${username}/new-user-setup.sh <<End-of-message
 # Removed from above: suckless-tools libxft2-dev libpcre3 pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev
 
 
-# Install Alacritty by adding a PPA repository
+# Install Alacritty and Neovim by adding their PPA repositories
 (echo "$password") | sudo -S add-apt-repository ppa:mmstick76/alacritty -y
+(echo "$password") | sudo -S add-apt-repository ppa:neovim-ppa/stable -y
 (echo "$password") | sudo -S apt update
 (echo "$password") | sudo -S apt install alacritty
-
-# Directory for programs not from repos
-mkdir -p ~/Programs
-
-# Install Neovim Appimage for Latest Release
-# ref: https://github.com/neovim/neovim/wiki/Installing-Neovim
-mkdir ~/Programs/neovim
-cd ~/Programs/neovim
-curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
-chmod u+x nvim.appimage
-# Below we will alias 'nvim' in ~/.zshrc to execute this Appimage
+(echo "$password") | sudo -S apt install neovim
 
 # Install Neovim Packer Plugin Manager
 git clone --depth 1 https://github.com/wbthomason/packer.nvim\
  ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+
+# Directory for programs not from repos
+mkdir -p ~/Programs
 
 # Build/Install picom
 cd ~/Programs
@@ -167,10 +161,6 @@ ln -s ~/.xinitrc ~/.xsession
 
 # zshrc
 cp ~/Programs/files/.zshrc ~/.zshrc
-
-# Set Neovim Appimage zsh alias
-sed -i "s/^alias music=.*$/&\\nFFFFF/" ~/.zshrc
-sed -i "s|^FFFFF|alias nvim=\'~/Programs/neovim/nvim.appimage\'|" ~/.zshrc
 
 # change shell to zsh
 (echo "$password"; echo /bin/zsh) | chsh 
