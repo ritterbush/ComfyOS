@@ -83,7 +83,7 @@ cat > /home/${username}/new-user-setup.sh <<End-of-message
 # Install Alacritty and Neovim by adding their PPA repositories
 # ppa outdated, use below(echo "$password") | sudo -S add-apt-repository ppa:mmstick76/alacritty -y
 (echo "$password") | sudo -S add-apt-repository ppa:aslatter/ppa -y
-(echo "$password") | sudo -S add-apt-repository ppa:neovim-ppa/stable -y
+(echo "$password") | sudo -S add-apt-repository ppa:neovim-ppa/unstable -y
 (echo "$password") | sudo -S apt update
 (echo "$password") | sudo -S apt install alacritty
 (echo "$password") | sudo -S apt install neovim
