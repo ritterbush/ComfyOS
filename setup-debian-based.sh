@@ -23,6 +23,11 @@ show_usage(){
 exit
 }
 
+if [ $# -eq 0 ]; then
+    show_usage
+    exit
+fi
+
 username=gnuslashdebianlinux
 password=password
 season_wallpaper_name=summer-sand-season.jpg
