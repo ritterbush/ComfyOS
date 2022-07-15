@@ -5,7 +5,7 @@
 # Or run with -c  and -p passwordofcurrentuser to use the current user, and possibly overwrite some config files.
 
 show_usage(){
-    printf "Usage:\n\n  $0 [options [parameters]]\n"
+    printf "Usage:\n\n  %s [options [parameters]]\n" "$0"
     printf "\n"
     printf "Defaults when used without options:\n"
     printf "\n"
@@ -25,7 +25,6 @@ exit
 
 if [ $# -eq 0 ]; then
     show_usage
-    exit
 fi
 
 username=gnuslashdebianlinux
@@ -69,9 +68,9 @@ while [ -n "$1" ]; do
 done
 
 # Check apt is installed
-command -v apt 2>&1 >/dev/null || { echo "ERROR: this script is for Debian-based systems. Apt is required."; exit; }
+command -v apt > /dev/null 2>&1 || { echo "ERROR: this script is for Debian-based systems. Apt is required."; exit; }
 
-if [ $username != ${USER} ] # -c option is not used, or current user is given
+if [ "$username" != "$USER" ] # -c option is not used, or current user is given
 then
 # Create new user with given password and add user to wheel, audio, and video groups
 sudo useradd -m -G sudo,audio,video "$username" ||
@@ -80,7 +79,7 @@ sudo useradd -m -G sudo,audio,video "$username" ||
 sudo chmod 733 /home/"$username"
 fi # end of -c option is not used
 
-cat > /home/${username}/new-user-setup.sh <<End-of-message
+cat > /home/"${username}"/new-user-setup.sh <<End-of-message
 (echo "$password"; echo; echo; echo) | sudo -S apt install xorg xinit zsh git ripgrep fd-find firefox feh sxiv imagemagick fonts-linuxlibertine neofetch htop mpd ncmpcpp libxcb1-dev libxcb-damage0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-render-util0-dev libxcb-render0-dev libxcb-randr0-dev libxcb-composite0-dev libxcb-image0-dev libxcb-present-dev libxcb-xinerama0-dev libxcb-glx0-dev libpixman-1-dev libdbus-1-dev libconfig-dev libgl1-mesa-dev libpcre2-dev libpcre3-dev libevdev-dev uthash-dev libev-dev libx11-xcb-dev meson libxext-dev asciidoc cmake python3 python3-pip ninja-build libxinerama-dev
 
 # Removed from above: suckless-tools libxft2-dev libpcre3 pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev
@@ -223,19 +222,19 @@ End-of-message
 
 #echo "$password" | sudo -S su - "$username" -c "sh /home/"$username"/new-user-setup.sh
 
-if [ $username != ${USER} ] # -c option is not used
+if [ "$username" != "$USER" ] # -c option is not used
 then
 # Change owner to be new user
-sudo -S chown "$username:$username" /home/"$username"/new-user-setup.sh
+sudo -S chown "${username}:$username" /home/"$username"/new-user-setup.sh
 
 # Return permissions to new user's home directory
 sudo -S chmod 700 /home/"$username"
 fi
 
 # Execute script as new or current user
-(echo "$password") | sudo -S su - "$username" -c "sh /home/"$username"/new-user-setup.sh"
+(echo "$password") | sudo -S su - "$username" -c "sh /home/${username}/new-user-setup.sh"
 
 # Replace password from script with PASSWORD12345
-(echo "$password") | sudo -S sed -i "s/$password/PASSWORD12345/g" /home/"$username"/new-user-setup.sh
+(echo "$password") | sudo -S sed -i "s/${password}/PASSWORD12345/g" /home/"$username"/new-user-setup.sh
 
-echo done
+echo Completed Successfully
