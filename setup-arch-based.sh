@@ -25,6 +25,7 @@ exit
 
 username=gnuslasharchlinux
 password=password
+season_wallpaper_name=summer-sand-season.jpg
 
 while [ -n "$1" ]; do
     case "$1" in
@@ -89,7 +90,7 @@ curl https://images.pexels.com/photos/570041/pexels-photo-570041.jpeg > ~/Pictur
 curl https://images.pexels.com/photos/7084186/pexels-photo-7084186.jpeg > ~/Pictures/Wallpapers/summer-sand-season.jpg
 
 # Generate py-wal cache files before building dwm and dmenu
-wal -i ~/Pictures/Wallpapers/winter-snow-season.jpg
+wal -i ~/Pictures/Wallpapers/"$season_wallpaper_name"
 sleep 3
 
 # Directory for building programs from source
@@ -138,7 +139,7 @@ cp /etc/xdg/picom.conf.example ~/.config/picom/picom.conf
 #~/.local/bin/dwm-opacity.sh 70
 sed -i "s/static const unsigned int baralpha = .*/static const unsigned int baralpha = 0xb3;/" ~/Programs/dwm/config.def.h
 #~/.local/bin/wallpaper-and-colors.sh ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
-sed -i "5s|.*|filepath=~/Pictures/Wallpapers/winter-snow-season.jpg|" ~/.local/bin/wallpaper-and-colors.sh
+sed -i "5s|.*|filepath=~/Pictures/Wallpapers/"$season_wallpaper_name"|" ~/.local/bin/wallpaper-and-colors.sh
 #xwallpaper --zoom ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
 #nitrogen --random ~/Pictures/Wallpapers/
 sed -i "s/static const char norm_fg\[\] = .*/\$(sed -n 1p ~/.cache/wal/colors-wal-dwm.h)/" ~/Programs/dwm/config.def.h
