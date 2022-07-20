@@ -34,7 +34,7 @@ season_wallpaper_name=summer-sand-season.jpg
 while [ -n "$1" ]; do
     case "$1" in
         --username|-u)
-            if [ -n "$2"  ]
+            if [ -n "$2" ]
             then
                 username="$2"
                 shift 2
@@ -51,7 +51,7 @@ while [ -n "$1" ]; do
             show_usage
             ;;
         --password|-p)
-            if [ -n "$2"  ]
+            if [ -n "$2" ]
             then
                 password="$2"
                 shift 2
@@ -73,14 +73,18 @@ command -v pacman > /dev/null 2>&1 || { echo "ERROR: this script is for Arch-bas
 if [ "$username" != "$USER" ] # -c option is not used, or current user is given
 then
 # Create new user with given password and add user to wheel, audio, and video groups
-sudo useradd -m -G wheel,audio,video "$username" ||
+sudo useradd -m -G wheel,audio,optical,disk,storage,video "$username" ||
 { echo "Useradd failed. See 'man useradd', and section CAVEATS for allowed usernames."; exit 1; }
 (echo "$password"; echo "$password") | sudo passwd "$username"
 sudo chmod 733 /home/"$username"
 fi # end of -c option is not used
 
 cat > /home/"${username}"/new-user-setup.sh <<End-of-message
-(echo "$password"; echo; echo; echo) | sudo -S pacman -S xorg xorg-xinit zsh exa git alacritty neovim ripgrep fd firefox picom feh sxiv ttf-linux-libertine python-pywal neofetch htop mpd ncmpcpp
+(echo "$password"; echo; echo; echo; echo) | sudo -S pacman -S xorg xorg-xinit zsh exa git alacritty neovim ripgrep fd firefox picom feh sxiv ttf-linux-libertine python-pywal neofetch htop mpd ncmpcpp
+
+# Install Neovim Packer Plugin Manager
+git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+ ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
 # Download Fall wallpaper from Pexels under CC0 license
 mkdir -p ~/Pictures/Wallpapers
@@ -99,10 +103,6 @@ sleep 3
 
 # Directory for building programs from source
 mkdir -p ~/Programs/files
-
-# Install Neovim Packer Plugin Manager
-git clone --depth 1 https://github.com/wbthomason/packer.nvim\
- ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
 # Get my dwm/dmenu desktop environment, various dotfiles, and scripts
 git clone https://github.com/ritterbush/files ~/Programs/files/
@@ -191,4 +191,4 @@ fi
 # Replace password from script with PASSWORD12345
 (echo "$password") | sudo -S sed -i "s/${password}/PASSWORD12345/g" /home/"$username"/new-user-setup.sh
 
-echo Completed Successfully
+echo "$0 Completed Successfully"

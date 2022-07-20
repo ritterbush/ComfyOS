@@ -34,7 +34,7 @@ season_wallpaper_name=summer-sand-season.jpg
 while [ -n "$1" ]; do
     case "$1" in
         --username|-u)
-            if [ -n "$2"  ]
+            if [ -n "$2" ]
             then
                 username="$2"
                 shift 2
@@ -51,7 +51,7 @@ while [ -n "$1" ]; do
             show_usage
             ;;
         --password|-p)
-            if [ -n "$2"  ]
+            if [ -n "$2" ]
             then
                 password="$2"
                 shift 2
@@ -73,7 +73,7 @@ command -v apt > /dev/null 2>&1 || { echo "ERROR: this script is for Debian-base
 if [ "$username" != "$USER" ] # -c option is not used, or current user is given
 then
 # Create new user with given password and add user to wheel, audio, and video groups
-sudo useradd -m -G sudo,audio,video "$username" ||
+sudo useradd -m -G sudo,audio,optical,disk,storage,video "$username" ||
 { echo "Useradd failed. See 'man useradd', and section CAVEATS for allowed usernames."; exit 1; }
 (echo "$password"; echo "$password") | sudo passwd "$username"
 sudo chmod 733 /home/"$username"
@@ -83,7 +83,6 @@ cat > /home/"${username}"/new-user-setup.sh <<End-of-message
 (echo "$password"; echo; echo; echo) | sudo -S apt install xorg xinit zsh git ripgrep fd-find firefox feh sxiv imagemagick fonts-linuxlibertine neofetch htop mpd ncmpcpp libxcb1-dev libxcb-damage0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-render-util0-dev libxcb-render0-dev libxcb-randr0-dev libxcb-composite0-dev libxcb-image0-dev libxcb-present-dev libxcb-xinerama0-dev libxcb-glx0-dev libpixman-1-dev libdbus-1-dev libconfig-dev libgl1-mesa-dev libpcre2-dev libpcre3-dev libevdev-dev uthash-dev libev-dev libx11-xcb-dev meson libxext-dev asciidoc cmake python3 python3-pip ninja-build libxinerama-dev
 
 # Removed from above: suckless-tools libxft2-dev libpcre3 pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev
-
 
 # Install Alacritty and Neovim by adding their PPA repositories
 # ppa outdated, use below(echo "$password") | sudo -S add-apt-repository ppa:mmstick76/alacritty -y
@@ -237,4 +236,4 @@ fi
 # Replace password from script with PASSWORD12345
 (echo "$password") | sudo -S sed -i "s/${password}/PASSWORD12345/g" /home/"$username"/new-user-setup.sh
 
-echo Completed Successfully
+echo "$0 Completed Successfully"
