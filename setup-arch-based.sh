@@ -14,10 +14,12 @@ show_usage(){
     printf "\n"
     printf "Options [parameters]:\n"
     printf "\n"
-    printf "  -u|--username [username]   Specify username; if special characters are\n                             used use single quotes.\n"
-    printf "  -p|--password [password]   Specify password; if special characters are\n                             used use single quotes.\n"
-    printf "  -c|--current               Use the current user; must also specify the 
-                             current user's password with -p or else the 
+    printf "  -u|--username [username]   Specify username; if special characters are
+                             used use single quotes.\n"
+    printf "  -p|--password [password]   Specify password; if special characters are
+                             used use single quotes.\n"
+    printf "  -c|--current               Use the current user; must also specify the
+                             current user's password with -p or else the
                              default password is used.\n"
     printf "  -h|--help                  Print this help.\n"
 exit
@@ -123,9 +125,9 @@ ln -s ~/.xinitrc ~/.xsession
 cp ~/Programs/files/.zshrc ~/.zshrc
 
 # change shell to zsh
-(echo "$password"; echo /bin/zsh) | chsh 
+(echo "$password"; echo /bin/zsh) | chsh
 
-# shell scripts, neovim config and plugins, alacritty config 
+# shell scripts, neovim config and plugins, alacritty config
 cp -r ~/Programs/files/.local ~/
 cp -r ~/Programs/files/.config ~/
 
