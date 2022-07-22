@@ -141,11 +141,15 @@ cp /etc/xdg/picom.conf.example ~/.config/picom/picom.conf
 # Setup colors and opacity, and these also build and install dwm and dmenu
 # Run again with different numbers to change
 
+# Alacritty and DWM opacity
 ~/.local/bin/alacritty-opacity.sh 70
-#~/.local/bin/dwm-opacity.sh 70
 sed -i "s/static const unsigned int baralpha = .*/static const unsigned int baralpha = 0xb3;/" ~/Programs/dwm/config.def.h
-#~/.local/bin/wallpaper-and-colors.sh ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
+
+# Changes to script
 sed -i "5s|.*|filepath=~/Pictures/Wallpapers/"$season_wallpaper_name"|" ~/.local/bin/wallpaper-and-colors.sh
+~/.local/bin/wallpaper-and-colors.sh ~/Pictures/Wallpapers/"$season_wallpaper_name"
+
+<<COMMENT
 #xwallpaper --zoom ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
 #nitrogen --random ~/Pictures/Wallpapers/
 sed -i "s/static const char norm_fg\[\] = .*/\$(sed -n 1p ~/.cache/wal/colors-wal-dwm.h)/" ~/Programs/dwm/config.def.h
@@ -171,6 +175,8 @@ sed -i "s/^.*\[SchemeNormHighlight\] =.*/        \[SchemeNormHighlight\] = \{ \$
 
 cd /home/"$username"/Programs/dwm/ && sudo -S make clean install
 cd /home/"$username"/Programs/dmenu/ && sudo -S make clean install
+COMMENT
+
 End-of-message
 
 # Make that script executable by owner
