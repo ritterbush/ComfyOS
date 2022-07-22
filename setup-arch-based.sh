@@ -147,7 +147,7 @@ sed -i "s/static const unsigned int baralpha = .*/static const unsigned int bara
 
 # Changes to script
 sed -i "5s|.*|filepath=~/Pictures/Wallpapers/"$season_wallpaper_name"|" ~/.local/bin/wallpaper-and-colors.sh
-~/.local/bin/wallpaper-and-colors.sh ~/Pictures/Wallpapers/"$season_wallpaper_name"
+sudo -S ~/.local/bin/wallpaper-and-colors.sh ~/Pictures/Wallpapers/"$season_wallpaper_name"
 
 <<COMMENT
 #xwallpaper --zoom ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
