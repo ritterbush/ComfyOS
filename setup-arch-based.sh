@@ -81,7 +81,7 @@ sudo useradd -m -G wheel,audio,optical,disk,storage,video "$username" ||
 sudo chmod 733 /home/"$username"
 fi # end of -c option is not used
 
-cat > /home/"${username}"/new-user-setup.sh <<End-of-message
+cat > /home/"${username}"/new-user-setup.sh <<EOF
 (echo "$password"; echo; echo; echo; echo) | sudo -S pacman -S xorg xorg-xinit zsh exa git alacritty neovim ripgrep fd firefox picom feh sxiv ttf-linux-libertine python-pywal neofetch htop mpd ncmpcpp
 
 # Install Neovim Packer Plugin Manager
@@ -177,7 +177,7 @@ cd /home/"$username"/Programs/dwm/ && sudo -S make clean install
 cd /home/"$username"/Programs/dmenu/ && sudo -S make clean install
 COMMENT
 
-End-of-message
+EOF
 
 # Make that script executable by owner
 (echo "$password") | sudo -S chmod 700 /home/"$username"/new-user-setup.sh
