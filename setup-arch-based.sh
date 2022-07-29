@@ -147,20 +147,8 @@ sed -i "s/static const unsigned int baralpha = .*/static const unsigned int bara
 
 # Changes to script
 sed -i "5s|.*|filepath=~/Pictures/Wallpapers/"$season_wallpaper_name"|" ~/.local/bin/wallpaper-and-colors.sh
-(echo "$password") | sudo -S su - "$username" -c 'sh ~/.local/bin/wallpaper-and-colors.sh ~/Pictures/Wallpapers/"$season_wallpaper_name"'
 
-<<COMMENT
-#xwallpaper --zoom ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
-#nitrogen --random ~/Pictures/Wallpapers/
-sed -i "s/static const char norm_fg\[\] = .*/\$(sed -n 1p ~/.cache/wal/colors-wal-dwm.h)/" ~/Programs/dwm/config.def.h
-sed -i "s/static const char norm_bg\[\] = .*/\$(sed -n 2p ~/.cache/wal/colors-wal-dwm.h)/" ~/Programs/dwm/config.def.h
-sed -i "s/static const char norm_border\[\] = .*/\$(sed -n 3p ~/.cache/wal/colors-wal-dwm.h)/" ~/Programs/dwm/config.def.h
-sed -i "s/static const char sel_fg\[\] = .*/\$(sed -n 5p ~/.cache/wal/colors-wal-dwm.h)/" ~/Programs/dwm/config.def.h
-sed -i "s/static const char sel_bg\[\] = .*/\$(sed -n 6p ~/.cache/wal/colors-wal-dwm.h)/" ~/Programs/dwm/config.def.h
-sed -i "s/static const char sel_border\[\] = .*/\$(sed -n 7p ~/.cache/wal/colors-wal-dwm.h)/" ~/Programs/dwm/config.def.h
-sed -i "s/^.*\[SchemeNorm\].*/\$(sed -n 3p ~/.cache/wal/colors-wal-dmenu.h)/" ~/Programs/dmenu/config.def.h
-sed -i "s/^.*\[SchemeSel\].*/\$(sed -n 4p ~/.cache/wal/colors-wal-dmenu.h)/" ~/Programs/dmenu/config.def.h
-sed -i "s/^.*\[SchemeOut\].*/\$(sed -n 5p ~/.cache/wal/colors-wal-dmenu.h)/" ~/Programs/dmenu/config.def.h
+# dmenu colors
 colorNewHighlight=\$(sed -n 7p ~/.cache/wal/colors)
 colorNewHighlight=\$(echo "\$colorNewHighlight" | sed "s/^/\"/")
 colorNewHighlight=\$(echo "\$colorNewHighlight" | sed "s/\$/\"/")
@@ -175,8 +163,6 @@ sed -i "s/^.*\[SchemeNormHighlight\] =.*/        \[SchemeNormHighlight\] = \{ \$
 
 cd /home/"$username"/Programs/dwm/ && sudo -S make clean install
 cd /home/"$username"/Programs/dmenu/ && sudo -S make clean install
-COMMENT
-
 EOF
 
 # Make that script executable by owner
