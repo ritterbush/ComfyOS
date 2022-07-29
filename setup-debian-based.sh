@@ -188,7 +188,7 @@ cp /etc/xdg/picom.conf.example ~/.config/picom/picom.conf
 
 ~/.local/bin/alacritty-opacity.sh 70
 #~/.local/bin/dwm-opacity.sh 70
-sed -i "s/static const unsigned int baralpha = .*/static const unsigned int baralpha = 0xb3;/" ~/Programs/dwm/config.def.h
+sed -i "s/static const unsigned int baralpha = .*/static const unsigned int baralpha = 0xb2;/" ~/Programs/dwm/config.def.h
 #~/.local/bin/wallpaper-and-colors.sh ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
 sed -i "5s|.*|filepath=~/Pictures/Wallpapers/"$season_wallpaper_name"|" ~/.local/bin/wallpaper-and-colors.sh
 #xwallpaper --zoom ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
