@@ -82,7 +82,7 @@ sudo chmod 733 /home/"$username"
 fi # end of -c option is not used
 
 cat > /home/"${username}"/new-user-setup.sh <<EOF
-(echo "$password"; echo; echo; echo; echo) | sudo -S pacman -S xorg xorg-xinit zsh exa git alacritty neovim ripgrep fd firefox picom feh sxiv ttf-linux-libertine python-pywal neofetch htop mpd ncmpcpp
+(echo "$1"; echo; echo; echo; echo) | sudo -S pacman -S xorg xorg-xinit zsh exa git alacritty neovim ripgrep fd firefox picom feh sxiv ttf-linux-libertine python-pywal neofetch htop mpd ncmpcpp
 
 # Install Neovim Packer Plugin Manager
 git clone --depth 1 https://github.com/wbthomason/packer.nvim\
@@ -100,7 +100,7 @@ curl https://images.pexels.com/photos/570041/pexels-photo-570041.jpeg > $HOME/Pi
 curl https://images.pexels.com/photos/7084186/pexels-photo-7084186.jpeg > $HOME/Pictures/Wallpapers/summer-sand-season.jpg
 
 # Generate py-wal cache files before building dwm and dmenu
-wal -i $HOME/Pictures/Wallpapers/"$season_wallpaper_name"
+wal -i $HOME/Pictures/Wallpapers/"$2"
 sleep 3
 
 # Directory for building programs from source
@@ -114,7 +114,7 @@ mv $HOME/Programs/files/dwm $HOME/Programs/
 mv $HOME/Programs/files/dmenu $HOME/Programs/
 
 # Copy start file for login managers
-echo "$password" | sudo -S cp $HOME/Programs/files/dwm.desktop /usr/share/xsessions/dwm.desktop
+echo "$1" | sudo -S cp $HOME/Programs/files/dwm.desktop /usr/share/xsessions/dwm.desktop
 
 # xinitrc
 cp $HOME/Programs/files/.xinitrc $HOME/.xinitrc
@@ -125,7 +125,7 @@ ln -s $HOME/.xinitrc $HOME/.xsession
 cp $HOME/Programs/files/.zshrc $HOME/.zshrc
 
 # change shell to zsh
-(echo "$password"; echo /bin/zsh) | chsh
+(echo "$1"; echo /bin/zsh) | chsh
 
 # shell scripts, neovim config and plugins, alacritty config
 cp -r $HOME/Programs/files/.local $HOME/
@@ -166,8 +166,8 @@ sed -i "s/color2/$color2/" $HOME/.cache/wal/colors-wal-dmenu.h
 sed -i "s/color3/$color3/" $HOME/.cache/wal/colors-wal-dmenu.h
 
 # install dwm and dmenu
-cd /home/"$username"/Programs/dwm/ && sudo -S make clean install
-cd /home/"$username"/Programs/dmenu/ && sudo -S make clean install
+cd $HOME/Programs/dwm/ && sudo -S make clean install
+cd $HOME/Programs/dmenu/ && sudo -S make clean install
 EOF
 
 # Make that script executable by owner
@@ -185,9 +185,6 @@ sudo -S chmod 700 /home/"$username"
 fi
 
 # Execute script as new or current user
-(echo "$password") | sudo -S su - "$username" -c "sh /home/${username}/new-user-setup.sh"
-
-# Replace password from script with PASSWORD12345
-(echo "$password") | sudo -S sed -i "s/${password}/PASSWORD12345/g" /home/"$username"/new-user-setup.sh
+(echo "$password") | sudo -S su - "$username" -c "sh /home/${username}/new-user-setup.sh $password $season_wallpaper_name"
 
 echo "$0 Completed Successfully"
