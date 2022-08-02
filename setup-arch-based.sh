@@ -145,22 +145,27 @@ cp /etc/xdg/picom.conf.example ~/.config/picom/picom.conf
 ~/.local/bin/alacritty-opacity.sh 70
 sed -i "s/static const unsigned int baralpha = .*/static const unsigned int baralpha = 0xb2;/" ~/Programs/dwm/config.def.h
 
-# Changes to script
-sed -i "5s|.*|filepath=~/Pictures/Wallpapers/"$season_wallpaper_name"|" ~/.local/bin/wallpaper-and-colors.sh
-
 # dmenu colors
-colorNewHighlight=\$(sed -n 7p ~/.cache/wal/colors)
-colorNewHighlight=\$(echo "\$colorNewHighlight" | sed "s/^/\"/")
-colorNewHighlight=\$(echo "\$colorNewHighlight" | sed "s/\$/\"/")
-color2=\$(grep "\[SchemeSel\] =" ~/Programs/dmenu/config.def.h)
-color2=\$(echo "\$color2" | sed "s/^.*, //")
-color2=\${color2% \},}
-color3=\$(grep "\[SchemeNorm\] =" ~/Programs/dmenu/config.def.h)
-color3=\$(echo "\$color3" | sed "s/^.*, //")
-color3=\${color3% \},}
-sed -i "s/^.*\[SchemeSelHighlight\] =.*/        \[SchemeSelHighlight\] = \{ \${colorNewHighlight}, \${color2} \},/" ~/Programs/dmenu/config.def.h
-sed -i "s/^.*\[SchemeNormHighlight\] =.*/        \[SchemeNormHighlight\] = \{ \${colorNewHighlight}, \${color3} \},/" ~/Programs/dmenu/config.def.h
+# Unfortunately, a highlight patch requires manually editing dmenu's wal cache file
+sed -i '4 a\
+	[SchemeSelHighlight] = { leftHlColor, color1 },' \
+$HOME/.cache/wal/colors-wal-dmenu.h
+sed -i '5 a\
+	[SchemeNormHighlight] = { leftHlColor, color2 },' \
+$HOME/.cache/wal/colors-wal-dmenu.h
+sed -i '7 a\
+	[SchemeNormHighlight] = { leftHlColor, color3 },' \
+$HOME/.cache/wal/colors-wal-dmenu.h
+leftHlColor=\"$(sed -n 7p $HOME/.cache/wal/colors)\"
+color1=\"$(sed -n 10p $HOME/.cache/wal/colors)\"
+color2=\"$(sed -n 1p $HOME/.cache/wal/colors)\"
+color3=\"$(sed -n 3p $HOME/.cache/wal/colors)\"
+sed -i "s/leftHlColor/$leftHlColor/g" $HOME/.cache/wal/colors-wal-dmenu.h
+sed -i "s/color1/$color1/" $HOME/.cache/wal/colors-wal-dmenu.h
+sed -i "s/color2/$color2/" $HOME/.cache/wal/colors-wal-dmenu.h
+sed -i "s/color3/$color3/" $HOME/.cache/wal/colors-wal-dmenu.h
 
+# install dwm and dmenu
 cd /home/"$username"/Programs/dwm/ && sudo -S make clean install
 cd /home/"$username"/Programs/dmenu/ && sudo -S make clean install
 EOF
