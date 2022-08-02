@@ -42,7 +42,7 @@ while [ -n "$1" ]; do
                 shift 2
             else
                 echo "-u flag requires a username"
-                exit
+                exit 1
             fi
             ;;
         --current|-c)
@@ -59,7 +59,7 @@ while [ -n "$1" ]; do
                 shift 2
             else
                 echo "-p option requires a password"
-                exit
+                exit 1
             fi
             ;;
         *)
