@@ -81,7 +81,7 @@ sudo useradd -m -G wheel,audio,optical,disk,storage,video "$username" ||
 sudo chmod 733 /home/"$username"
 fi # end of -c option is not used
 
-cat > /home/"${username}"/new-user-setup.sh <<EOF
+cat > /home/"${username}"/new-user-setup.sh <<"EOF"
 (echo "$1"; echo; echo; echo; echo) | sudo -S pacman -S xorg xorg-xinit zsh exa git alacritty neovim ripgrep fd firefox picom feh sxiv ttf-linux-libertine python-pywal neofetch htop mpd ncmpcpp
 
 # Install Neovim Packer Plugin Manager
