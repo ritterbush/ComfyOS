@@ -86,64 +86,64 @@ cat > /home/"${username}"/new-user-setup.sh <<EOF
 
 # Install Neovim Packer Plugin Manager
 git clone --depth 1 https://github.com/wbthomason/packer.nvim\
- ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+ $HOME/.local/share/nvim/site/pack/packer/start/packer.nvim
 
 # Download Fall wallpaper from Pexels under CC0 license
-mkdir -p ~/Pictures/Wallpapers
+mkdir -p $HOME/Pictures/Wallpapers
 #fall
-curl https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg > ~/Pictures/Wallpapers/fall-autumn-red-season.jpg
+curl https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg > $HOME/Pictures/Wallpapers/fall-autumn-red-season.jpg
 #winter
-curl https://images.pexels.com/photos/688660/pexels-photo-688660.jpeg > ~/Pictures/Wallpapers/winter-snow-season.jpg
+curl https://images.pexels.com/photos/688660/pexels-photo-688660.jpeg > $HOME/Pictures/Wallpapers/winter-snow-season.jpg
 #spring
-curl https://images.pexels.com/photos/570041/pexels-photo-570041.jpeg > ~/Pictures/Wallpapers/spring-flower-season.jpg
+curl https://images.pexels.com/photos/570041/pexels-photo-570041.jpeg > $HOME/Pictures/Wallpapers/spring-flower-season.jpg
 #summer
-curl https://images.pexels.com/photos/7084186/pexels-photo-7084186.jpeg > ~/Pictures/Wallpapers/summer-sand-season.jpg
+curl https://images.pexels.com/photos/7084186/pexels-photo-7084186.jpeg > $HOME/Pictures/Wallpapers/summer-sand-season.jpg
 
 # Generate py-wal cache files before building dwm and dmenu
-wal -i ~/Pictures/Wallpapers/"$season_wallpaper_name"
+wal -i $HOME/Pictures/Wallpapers/"$season_wallpaper_name"
 sleep 3
 
 # Directory for building programs from source
-mkdir -p ~/Programs/files
+mkdir -p $HOME/Programs/files
 
 # Get my dwm/dmenu desktop environment, various dotfiles, and scripts
-git clone https://github.com/ritterbush/files ~/Programs/files/
+git clone https://github.com/ritterbush/files $HOME/Programs/files/
 
 # Put dwm and dmenu in a good spot
-mv ~/Programs/files/dwm ~/Programs/
-mv ~/Programs/files/dmenu ~/Programs/
+mv $HOME/Programs/files/dwm $HOME/Programs/
+mv $HOME/Programs/files/dmenu $HOME/Programs/
 
 # Copy start file for login managers
-echo "$password" | sudo -S cp ~/Programs/files/dwm.desktop /usr/share/xsessions/dwm.desktop
+echo "$password" | sudo -S cp $HOME/Programs/files/dwm.desktop /usr/share/xsessions/dwm.desktop
 
 # xinitrc
-cp ~/Programs/files/.xinitrc ~/.xinitrc
+cp $HOME/Programs/files/.xinitrc $HOME/.xinitrc
 # link it to .xsession
-ln -s ~/.xinitrc ~/.xsession
+ln -s $HOME/.xinitrc $HOME/.xsession
 
 # zshrc
-cp ~/Programs/files/.zshrc ~/.zshrc
+cp $HOME/Programs/files/.zshrc $HOME/.zshrc
 
 # change shell to zsh
 (echo "$password"; echo /bin/zsh) | chsh
 
 # shell scripts, neovim config and plugins, alacritty config
-cp -r ~/Programs/files/.local ~/
-cp -r ~/Programs/files/.config ~/
+cp -r $HOME/Programs/files/.local $HOME/
+cp -r $HOME/Programs/files/.config $HOME/
 
 # vimrc
-cp ~/Programs/files/.vimrc ~/.vimrc
+cp $HOME/Programs/files/.vimrc $HOME/.vimrc
 
 # picom compositor config
-mkdir -p ~/.config/picom
-cp /etc/xdg/picom.conf.example ~/.config/picom/picom.conf
+mkdir -p $HOME/.config/picom
+cp /etc/xdg/picom.conf.example $HOME/.config/picom/picom.conf
 
 # Setup colors and opacity, and these also build and install dwm and dmenu
 # Run again with different numbers to change
 
 # Alacritty and DWM opacity
-~/.local/bin/alacritty-opacity.sh 70
-sed -i "s/static const unsigned int baralpha = .*/static const unsigned int baralpha = 0xb2;/" ~/Programs/dwm/config.def.h
+$HOME/.local/bin/alacritty-opacity.sh 70
+sed -i "s/static const unsigned int baralpha = .*/static const unsigned int baralpha = 0xb2;/" $HOME/Programs/dwm/config.def.h
 
 # dmenu colors
 # Unfortunately, a highlight patch requires manually editing dmenu's wal cache file
