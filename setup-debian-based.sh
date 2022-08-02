@@ -96,13 +96,13 @@ cat > /home/"${username}"/new-user-setup.sh <<EOF
 
 # Install Neovim Packer Plugin Manager
 git clone --depth 1 https://github.com/wbthomason/packer.nvim\
- $HOME/.local/share/nvim/site/pack/packer/start/packer.nvim
+ "$HOME"/.local/share/nvim/site/pack/packer/start/packer.nvim
 
 # Directory for programs not from repos
-mkdir -p $HOME/Programs
+mkdir -p "$HOME"/Programs
 
 # Build/Install picom
-cd $HOME/Programs
+cd "$HOME"/Programs
 git clone https://github.com/yshui/picom
 cd picom
 git submodule update --init --recursive
@@ -111,7 +111,7 @@ ninja -C build
 (echo "$1") | sudo -S ninja -C build install
 
 # Build/Install py-wal
-cd $HOME/Programs
+cd "$HOME"/Programs
 git clone https://github.com/dylanaraps/pywal
 cd pywal
 pip3 install --user .
@@ -126,93 +126,93 @@ pip3 install --user .
 #fi
 
 # Install latest stable Exa
-mkdir -p $HOME/Programs/exa
-cd $HOME/Programs/exa
+mkdir -p "$HOME"/Programs/exa
+cd "$HOME"/Programs/exa
 wget -c https://github.com/ogham/exa/releases/download/v0.10.1/exa-linux-x86_64-v0.10.1.zip
 unzip exa-linux-x86_64-v0.10.1.zip
-sudo mv $HOME/Programs/exa/bin/exa  /usr/local/bin/
-sudo cp $HOME/Programs/exa/completions/exa.zsh /usr/local/share/zsh/site-functions/_exa
+sudo mv "$HOME"/Programs/exa/bin/exa  /usr/local/bin/
+sudo cp "$HOME"/Programs/exa/completions/exa.zsh /usr/local/share/zsh/site-functions/_exa
 
 # Download Fall wallpaper from Pexels under CC0 license
-mkdir -p $HOME/Pictures/Wallpapers
+mkdir -p "$HOME"/Pictures/Wallpapers
 #fall
-curl https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg > $HOME/Pictures/Wallpapers/fall-autumn-red-season.jpg
+curl https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg > "$HOME"/Pictures/Wallpapers/fall-autumn-red-season.jpg
 #winter
-curl https://images.pexels.com/photos/688660/pexels-photo-688660.jpeg > $HOME/Pictures/Wallpapers/winter-snow-season.jpg
+curl https://images.pexels.com/photos/688660/pexels-photo-688660.jpeg > "$HOME"/Pictures/Wallpapers/winter-snow-season.jpg
 #spring
-curl https://images.pexels.com/photos/570041/pexels-photo-570041.jpeg > $HOME/Pictures/Wallpapers/spring-flower-season.jpg
+curl https://images.pexels.com/photos/570041/pexels-photo-570041.jpeg > "$HOME"/Pictures/Wallpapers/spring-flower-season.jpg
 #summer
-curl https://images.pexels.com/photos/7084186/pexels-photo-7084186.jpeg > $HOME/Pictures/Wallpapers/summer-sand-season.jpg
+curl https://images.pexels.com/photos/7084186/pexels-photo-7084186.jpeg > "$HOME"/Pictures/Wallpapers/summer-sand-season.jpg
 
 # Generate py-wal cache files before building dwm and dmenu
-$HOME/.local/bin/wal -i $HOME/Pictures/Wallpapers/"$2"
+"$HOME"/.local/bin/wal -i "$HOME"/Pictures/Wallpapers/"$2"
 sleep 3
 
 # Directory for building programs from source
-mkdir -p $HOME/Programs/files
+mkdir -p "$HOME"/Programs/files
 
 # Get my dwm/dmenu desktop environment, various dotfiles, and scripts
-git clone https://github.com/ritterbush/files $HOME/Programs/files/
+git clone https://github.com/ritterbush/files "$HOME"/Programs/files/
 
 # Put dwm and dmenu in a good spot
-mv $HOME/Programs/files/dwm $HOME/Programs/
-mv $HOME/Programs/files/dmenu $HOME/Programs/
+mv "$HOME"/Programs/files/dwm "$HOME"/Programs/
+mv "$HOME"/Programs/files/dmenu "$HOME"/Programs/
 
 # Copy start file for login managers
-echo "$1" | sudo -S cp $HOME/Programs/files/dwm.desktop /usr/share/xsessions/dwm.desktop
+echo "$1" | sudo -S cp "$HOME"/Programs/files/dwm.desktop /usr/share/xsessions/dwm.desktop
 
 # xinitrc
-cp $HOME/Programs/files/.xinitrc $HOME/.xinitrc
+cp "$HOME"/Programs/files/.xinitrc "$HOME"/.xinitrc
 # link it to .xsession
-ln -s $HOME/.xinitrc $HOME/.xsession
+ln -s "$HOME"/.xinitrc "$HOME"/.xsession
 
 # zshrc
-cp $HOME/Programs/files/.zshrc $HOME/.zshrc
+cp "$HOME"/Programs/files/.zshrc "$HOME"/.zshrc
 
 # change shell to zsh
 (echo "$1"; echo /bin/zsh) | chsh
 
 # shell scripts, neovim config and plugins, alacritty config
-cp -r $HOME/Programs/files/.local $HOME/
-cp -r $HOME/Programs/files/.config $HOME/
+cp -r "$HOME"/Programs/files/.local "$HOME"/
+cp -r "$HOME"/Programs/files/.config "$HOME"/
 
 # vimrc
-cp $HOME/Programs/files/.vimrc $HOME/.vimrc
+cp "$HOME"/Programs/files/.vimrc "$HOME"/.vimrc
 
 # picom compositor config
-mkdir -p $HOME/.config/picom
-cp /etc/xdg/picom.conf.example $HOME/.config/picom/picom.conf
+mkdir -p "$HOME"/.config/picom
+cp /etc/xdg/picom.conf.example "$HOME"/.config/picom/picom.conf
 
 # Setup colors and opacity, and these also build and install dwm and dmenu
 # Run again with different numbers to change
 
 # Alacritty and DWM opacity
-$HOME/.local/bin/alacritty-opacity.sh 70
-sed -i "s/static const unsigned int baralpha = .*/static const unsigned int baralpha = 0xb2;/" $HOME/Programs/dwm/config.def.h
+"$HOME"/.local/bin/alacritty-opacity.sh 70
+sed -i "s/static const unsigned int baralpha = .*/static const unsigned int baralpha = 0xb2;/" "$HOME"/Programs/dwm/config.def.h
 
 # dmenu colors
 # Unfortunately, a highlight patch requires manually editing dmenu's wal cache file
 sed -i '4 a\
 	[SchemeSelHighlight] = { leftHlColor, color1 },' \
-$HOME/.cache/wal/colors-wal-dmenu.h
+"$HOME"/.cache/wal/colors-wal-dmenu.h
 sed -i '5 a\
 	[SchemeNormHighlight] = { leftHlColor, color2 },' \
-$HOME/.cache/wal/colors-wal-dmenu.h
+"$HOME"/.cache/wal/colors-wal-dmenu.h
 sed -i '7 a\
 	[SchemeNormHighlight] = { leftHlColor, color3 },' \
-$HOME/.cache/wal/colors-wal-dmenu.h
-leftHlColor=\"$(sed -n 7p $HOME/.cache/wal/colors)\"
-color1=\"$(sed -n 10p $HOME/.cache/wal/colors)\"
-color2=\"$(sed -n 1p $HOME/.cache/wal/colors)\"
-color3=\"$(sed -n 3p $HOME/.cache/wal/colors)\"
-sed -i "s/leftHlColor/$leftHlColor/g" $HOME/.cache/wal/colors-wal-dmenu.h
-sed -i "s/color1/$color1/" $HOME/.cache/wal/colors-wal-dmenu.h
-sed -i "s/color2/$color2/" $HOME/.cache/wal/colors-wal-dmenu.h
-sed -i "s/color3/$color3/" $HOME/.cache/wal/colors-wal-dmenu.h
+"$HOME"/.cache/wal/colors-wal-dmenu.h
+leftHlColor=\"$(sed -n 7p "$HOME"/.cache/wal/colors)\"
+color1=\"$(sed -n 10p "$HOME"/.cache/wal/colors)\"
+color2=\"$(sed -n 1p "$HOME"/.cache/wal/colors)\"
+color3=\"$(sed -n 3p "$HOME"/.cache/wal/colors)\"
+sed -i "s/leftHlColor/$leftHlColor/g" "$HOME"/.cache/wal/colors-wal-dmenu.h
+sed -i "s/color1/$color1/" "$HOME"/.cache/wal/colors-wal-dmenu.h
+sed -i "s/color2/$color2/" "$HOME"/.cache/wal/colors-wal-dmenu.h
+sed -i "s/color3/$color3/" "$HOME"/.cache/wal/colors-wal-dmenu.h
 
 # install dwm and dmenu
-cd $HOME/Programs/dwm/ && sudo -S make clean install
-cd $HOME/Programs/dmenu/ && sudo -S make clean install
+cd "$HOME"/Programs/dwm/ && sudo -S make clean install
+cd "$HOME"/Programs/dmenu/ && sudo -S make clean install
 EOF
 
 # Make that script executable by owner
