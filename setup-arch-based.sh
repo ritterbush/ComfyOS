@@ -82,7 +82,7 @@ sudo chmod 733 /home/"$username"
 fi # end of -c option is not used
 
 cat > /home/"${username}"/new-user-setup.sh <<"EOF"
-(echo "$1"; echo; echo; echo; echo) | sudo -S pacman -S xorg xorg-xinit zsh exa git alacritty neovim ripgrep fd firefox picom feh sxiv ttf-linux-libertine python-pywal neofetch htop mpd ncmpcpp
+(echo "$1"; echo; echo; echo; echo) | sudo -S pacman -S xorg xorg-xinit pipwire pipewire-alsa pipewire-pulse zsh exa git alacritty neovim ripgrep fd firefox picom feh sxiv ttf-linux-libertine python-pywal neofetch htop mpv mpd ncmpcpp
 
 # Install Neovim Packer Plugin Manager
 git clone --depth 1 https://github.com/wbthomason/packer.nvim\
