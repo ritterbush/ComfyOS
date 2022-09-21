@@ -31,7 +31,7 @@ fi
 
 username=gnuslasharchlinux
 password=password
-season_wallpaper_name=summer-sand-season.jpg
+season_wallpaper_name=fall-autumn-red-season.jpg
 
 while [ -n "$1" ]; do
     case "$1" in
